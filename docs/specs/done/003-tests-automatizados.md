@@ -1,5 +1,5 @@
 # 003 · Tests automatizados
-Estado: aprobada · Fase del PLAN: 3 · Fecha: 2026-10-21
+Estado: hecha · Fase del PLAN: 3 · Fecha: 2026-10-21
 
 ## Objetivo
 Llevar al repo, como tests que se pueden repetir, lo que hoy se verifica a mano o con scripts sueltos. Correrlos en CI y que el sitio solo se publique si pasan. La verificación de la spec 002 encontró un desborde real en `/carro/`; sin tests, un cambio futuro puede volver a romperlo sin que nadie lo note.
@@ -75,16 +75,28 @@ No entra:
 Nuevos: `vitest.config.ts`, `playwright.config.ts`, `tests/unit/*.test.ts`, `tests/e2e/*.spec.ts`. Modificados: `package.json`, `.github/workflows/deploy.yml`, `.gitignore` (reportes de Playwright), `README.md`, `AGENTS.md`.
 
 ## Criterios de aceptación
-- [ ] `npm run test` en verde, con los casos de la tabla de unitarios.
-- [ ] `npm run test:e2e` en verde en local, con el Edge instalado (`PW_CHANNEL=msedge`).
-- [ ] Prueba de que los tests detectan errores: reintroducir a propósito el desborde de `/carro/` (quitar `grid-cols-1`) hace fallar `responsivo.spec.ts`; volver a ponerlo lo arregla. Lo mismo con el tope de stock en `carro.test.ts`.
-- [ ] axe sin infracciones `serious` ni `critical` en ambos temas. Si aparece alguna, se corrige en esta spec o se documenta por qué no.
-- [ ] En GitHub Actions, el job `test` pasa y el deploy corre después; el workflow ya no avisa por Node 20.
-- [ ] Un pull request de prueba con un test roto queda marcado en rojo y no publica.
-- [ ] README y `AGENTS.md` explican cómo correr los tests.
+- [x] `npm run test` en verde: 41 tests en 4 archivos (`rut`, `tienda` con envío, precios, descuento y URLs, `carro` y `tema`).
+- [x] `npm run test:e2e` en verde en local con `PW_CHANNEL=msedge`: 35 tests (10 de responsividad, 3 de tema, 12 de compra en móvil y escritorio por tema, 10 de axe).
+- [x] Los tests detectan errores: con el desborde de `/carro/` reintroducido fallan 4 e2e de responsividad (320 y 375 px, ambos temas) y nombran los elementos que se salen; sin el tope de stock fallan 2 unitarios. Al restaurar, todo vuelve a verde.
+- [x] axe sin infracciones `serious` ni `critical` en ambos temas, después de corregir lo que encontró (ver Resultado).
+- [x] En GitHub Actions el job `test` pasa (35 e2e también en CI) y luego corren build y deploy. Ya no hay aviso de Node 20.
+- [x] PR de prueba #1 con un test roto: `test` en rojo, `build` y `deploy` omitidos. Cerrado sin fusionar y rama borrada.
+- [x] README y `AGENTS.md` explican cómo correr los tests y qué cubrir en cada cambio.
 
-## Preguntas abiertas
-1. **¿Bloquear el deploy si fallan los tests?** Recomiendo que sí: es el sentido de tenerlos en CI.
-2. **¿Accesibilidad con axe en esta spec?** Recomiendo incluirla, fallando solo con infracciones graves (`serious` y `critical`) para que no haya ruido. Para un portafolio suma mucho.
-3. **Navegador e2e en local:** ¿el Edge instalado por defecto, o el Chromium de Playwright? Recomiendo que el valor por defecto sea el Chromium de Playwright (igual que en CI, así los resultados coinciden) y que `PW_CHANNEL=msedge` sea opcional para no descargar nada.
-4. **¿Pruebo el flujo con un pull request real** (rama con un test roto que se descarta después)? Recomiendo que sí: es la única forma de comprobar que CI bloquea de verdad. Queda un PR cerrado en el historial del repo.
+## Decisiones (2026-10-21)
+1. El deploy se bloquea si fallan los tests.
+2. Accesibilidad con axe, fallando solo con infracciones `serious` y `critical`.
+3. Navegador e2e: el Chromium de Playwright por defecto (igual que CI); `PW_CHANNEL=msedge` opcional.
+4. Se probó el bloqueo con un PR real (#1), cerrado sin fusionar.
+
+## Resultado (2026-10-21)
+
+**axe encontró 4 problemas reales**, que el cálculo de contraste de la spec 002 no cubría, y se corrigieron:
+- `label-content-name-mismatch`: el botón del carro se anunciaba como "Abrir carro, N productos" pero mostraba "Carro N". Ahora el nombre sale del texto visible ("Carro 3 productos", con la palabra "productos" solo para lectores de pantalla).
+- `link-name`: el enlace de la imagen en las tarjetas y en el carro no tenía nombre y duplicaba el del título. Ahora está fuera del orden de tabulación y oculto para lectores de pantalla. Lo que mostraban sus etiquetas ("Requiere receta", "-20%") se repite como texto accesible junto al nombre y el precio.
+- `color-contrast`: "Pulso" del logo en `marca-600` (3,74:1) pasa a `text-acento`; "¡Últimas N unidades!" en `orange-600` (3,56:1) pasa a `orange-700`.
+
+**Notas de implementación:**
+- Vitest fija `import.meta.env.BASE_URL` en `/` aunque se use `getViteConfig`. Se pasa `test.env.BASE_URL` desde `astro.config.mjs`.
+- El panel del carro cerrado sigue en el DOM, desplazado e inerte. Para Playwright es "visible", así que el test comprueba `not.toBeInViewport()`.
+- Acciones actualizadas: `checkout@v7`, `setup-node@v7`, `upload-artifact@v7`, `withastro/action@v6`, `deploy-pages@v5`.

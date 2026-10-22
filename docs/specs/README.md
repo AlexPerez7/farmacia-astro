@@ -37,4 +37,5 @@ Lo que necesita tu decisión.
 |---|---|---|
 | 001 | [MVP de tienda con carro](done/001-mvp-tienda-carro.md) | hecha |
 | 002 | [Modo oscuro y responsividad](done/002-modo-oscuro-responsividad.md) | hecha |
-| 003 | [Tests automatizados](003-tests-automatizados.md) | aprobada |
+| 003 | [Tests automatizados](done/003-tests-automatizados.md) | hecha |
+| 004 | [Rediseño inspirado en farmacias chilenas](004-rediseno-farmacias-chilenas.md) | propuesta |

@@ -36,8 +36,9 @@ Astro 7 · React 19 · Tailwind CSS 4 · nanostores · Fuse.js · TypeScript est
 |---|---|---|
 | **1. MVP de tienda** | Catálogo, búsqueda y filtros, carro, checkout simulado, despliegue | hecha (spec 001) |
 | **2. Calidad visual** | Modo oscuro y responsividad revisada en todos los anchos | hecha (spec 002) |
-| **3. Pruebas** | Tests unitarios (Vitest), e2e y accesibilidad (Playwright + axe) en CI, deploy condicionado | propuesta (spec 003) |
-| **4. Extras de portafolio** | Imágenes de producto, favoritos, historial de pedidos local, Lighthouse ≥ 95 documentado | pendiente |
+| **3. Pruebas** | Tests unitarios (Vitest), e2e y accesibilidad (Playwright + axe) en CI, deploy condicionado | hecha (spec 003) |
+| **4. Rediseño comercial** | Navegación, inicio y tarjetas al estilo de las farmacias chilenas: menú de categorías, comuna, buscador con sugerencias, carruseles, oferta relámpago, precio por unidad, favoritos, seguimiento | propuesta (spec 004) |
+| **5. Extras de portafolio** | Imágenes de producto, Lighthouse ≥ 95 documentado | pendiente |
 
 ## 5. Decisiones
 
@@ -53,3 +54,5 @@ Astro 7 · React 19 · Tailwind CSS 4 · nanostores · Fuse.js · TypeScript est
 - 2026-10-21: adoptado el flujo de specs (`docs/specs/`), `AGENTS.md`, `CLAUDE.md` y este plan. Redactada la spec 002 (modo oscuro y responsividad).
 - 2026-10-21: fase 2 hecha (spec 002). Colores semánticos con tema claro/oscuro, interruptor Sistema/Claro/Oscuro sin destello, 11 correcciones de responsividad. Verificado con Playwright sobre Edge: sin scroll horizontal en 9 páginas × 5 anchos × 2 temas, interruptor y recorrido de compra completo en ambos temas, contraste AA calculado. La verificación encontró y corrigió el desborde de `/carro/` en el celular y dos contrastes insuficientes. Cierra la prueba en navegador pendiente de la spec 001. Siguiente: fase 3 (tests automatizados en el repo).
 - 2026-10-21: push de las specs 001-002 y deploy. Redactada la spec 003 (tests automatizados).
+- 2026-10-21: fase 3 hecha (spec 003). 41 unitarios (Vitest) y 35 e2e (Playwright + axe) sobre el build; CI corre los tests en push y PR y solo publica desde main si pasan. axe encontró y se corrigieron 4 problemas de accesibilidad (nombre del botón del carro, enlaces de imagen sin nombre, dos contrastes). Bloqueo verificado con el PR #1 (test roto, cerrado sin fusionar). Acciones actualizadas a Node 24.
+- 2026-10-21: revisadas las portadas de Cruz Verde, Farmacias Ahumada y Salcobrand como referencia de patrones. Redactada la spec 004 (rediseño comercial).
