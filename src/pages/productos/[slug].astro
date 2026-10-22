@@ -1,0 +1,111 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import AgregarAlCarro from '../../components/AgregarAlCarro';
+import ProductoCard from '../../components/ProductoCard';
+import ProductoVisual from '../../components/ProductoVisual';
+import { categoriaPorId } from '../../lib/categorias';
+import { clp } from '../../lib/tienda';
+import { aProducto, descuento, type Producto } from '../../lib/tipos';
+import { url } from '../../lib/url';
+
+export const getStaticPaths = (async () => {
+  const productos = (await getCollection('productos')).map(aProducto);
+  return productos.map((producto) => ({
+    params: { slug: producto.id },
+    props: {
+      producto,
+      relacionados: productos.filter((p) => p.categoria === producto.categoria && p.id !== producto.id).slice(0, 4),
+    },
+  }));
+}) satisfies GetStaticPaths;
+
+const { producto, relacionados } = Astro.props as { producto: Producto; relacionados: Producto[] };
+const categoria = categoriaPorId(producto.categoria)!;
+const dcto = descuento(producto);
+---
+
+<Base title={producto.nombre} description={`${producto.nombre} ${producto.presentacion} de ${producto.laboratorio}. ${producto.descripcion}`}>
+  <nav aria-label="Ruta" class="mb-4 text-sm text-slate-500">
+    <a href={url('')} class="hover:text-marca-700">Inicio</a> /
+    <a href={url(`categoria/${categoria.id}/`)} class="hover:text-marca-700">{categoria.nombre}</a> /
+    <span class="text-slate-700">{producto.nombre}</span>
+  </nav>
+
+  <div class="grid gap-8 md:grid-cols-2">
+    <div class="relative">
+      <ProductoVisual categoria={producto.categoria} tamano="lg" className="aspect-square rounded-3xl" />
+      {dcto > 0 && <span class="absolute left-4 top-4 rounded-lg bg-red-600 px-2.5 py-1 text-sm font-bold text-white">-{dcto}%</span>}
+    </div>
+
+    <div>
+      <p class="text-sm font-semibold uppercase tracking-wide text-slate-500">{producto.laboratorio}</p>
+      <h1 class="mt-1 text-3xl font-bold leading-tight text-slate-900">{producto.nombre}</h1>
+      <p class="mt-1 text-slate-600">{producto.presentacion}</p>
+
+      <p class="mt-6 flex items-baseline gap-3">
+        <span class="text-3xl font-extrabold text-slate-900">{clp(producto.precio)}</span>
+        {producto.precioAnterior && <span class="text-lg text-slate-400 line-through">{clp(producto.precioAnterior)}</span>}
+      </p>
+      <p class:list={['mt-1 text-sm font-medium', producto.stock === 0 ? 'text-red-600' : producto.stock <= 5 ? 'text-orange-600' : 'text-emerald-700']}>
+        {producto.stock === 0 ? 'Sin stock' : producto.stock <= 5 ? `¡Últimas ${producto.stock} unidades!` : 'Disponible'}
+      </p>
+
+      {
+        producto.requiereReceta && (
+          <div class="mt-6 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+            <p class="font-semibold">Este medicamento requiere receta médica</p>
+            <p class="mt-1">
+              Puedes reservarlo en línea y retirarlo en sucursal, donde el químico farmacéutico validará tu receta. El pago se realiza al retirar.
+            </p>
+          </div>
+        )
+      }
+
+      <div class="mt-6 max-w-sm">
+        <AgregarAlCarro producto={producto} conCantidad client:load />
+      </div>
+
+      <dl class="mt-8 divide-y divide-slate-200 border-y border-slate-200 text-sm">
+        {
+          producto.principioActivo && (
+            <div class="flex justify-between py-3">
+              <dt class="text-slate-500">Principio activo</dt>
+              <dd class="font-medium">{producto.principioActivo}</dd>
+            </div>
+          )
+        }
+        <div class="flex justify-between py-3">
+          <dt class="text-slate-500">Condición de venta</dt>
+          <dd class="font-medium">{producto.requiereReceta ? 'Receta médica' : 'Venta directa'}</dd>
+        </div>
+        <div class="flex justify-between py-3">
+          <dt class="text-slate-500">Categoría</dt>
+          <dd class="font-medium">{categoria.nombre}</dd>
+        </div>
+      </dl>
+
+      <h2 class="mt-8 font-bold text-slate-900">Descripción</h2>
+      <p class="mt-2 leading-relaxed text-slate-600">{producto.descripcion}</p>
+      {
+        producto.categoria === 'medicamentos' && (
+          <p class="mt-4 text-xs text-slate-500">Lea las instrucciones del folleto antes de usar. Si los síntomas persisten, consulte a su médico.</p>
+        )
+      }
+    </div>
+  </div>
+
+  {
+    relacionados.length > 0 && (
+      <section class="mt-16">
+        <h2 class="text-2xl font-bold text-slate-900">También te puede interesar</h2>
+        <div class="mt-4 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+          {relacionados.map((p) => (
+            <ProductoCard producto={p} client:visible />
+          ))}
+        </div>
+      </section>
+    )
+  }
+</Base>

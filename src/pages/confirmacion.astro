@@ -1,0 +1,10 @@
+---
+import Base from '../layouts/Base.astro';
+import Confirmacion from '../components/Confirmacion';
+---
+
+<Base title="Pedido confirmado">
+  <Confirmacion client:only="react">
+    <p slot="fallback" class="text-center text-slate-500">Cargando pedido…</p>
+  </Confirmacion>
+</Base>

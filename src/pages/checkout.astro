@@ -1,0 +1,11 @@
+---
+import Base from '../layouts/Base.astro';
+import Checkout from '../components/Checkout';
+---
+
+<Base title="Finalizar compra">
+  <h1 class="mb-6 text-3xl font-bold text-slate-900">Finalizar compra</h1>
+  <Checkout client:only="react">
+    <p slot="fallback" class="text-slate-500">Cargando…</p>
+  </Checkout>
+</Base>

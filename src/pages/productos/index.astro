@@ -1,0 +1,13 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Catalogo from '../../components/Catalogo';
+import { aProducto } from '../../lib/tipos';
+
+const productos = (await getCollection('productos')).map(aProducto);
+---
+
+<Base title="Todos los productos">
+  <h1 class="mb-6 text-3xl font-bold text-slate-900">Todos los productos</h1>
+  <Catalogo productos={productos} client:load />
+</Base>

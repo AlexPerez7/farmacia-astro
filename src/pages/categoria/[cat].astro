@@ -1,0 +1,24 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Catalogo from '../../components/Catalogo';
+import { CATEGORIAS, type Categoria } from '../../lib/categorias';
+import { aProducto } from '../../lib/tipos';
+import { url } from '../../lib/url';
+
+export const getStaticPaths = (() => CATEGORIAS.map((c) => ({ params: { cat: c.id }, props: { categoria: c } }))) satisfies GetStaticPaths;
+
+const { categoria } = Astro.props as { categoria: Categoria };
+const productos = (await getCollection('productos', (p) => p.data.categoria === categoria.id)).map(aProducto);
+---
+
+<Base title={categoria.nombre} description={`${categoria.nombre}: ${categoria.descripcion}. Compra en línea con despacho a domicilio.`}>
+  <nav aria-label="Ruta" class="mb-2 text-sm text-slate-500">
+    <a href={url('')} class="hover:text-marca-700">Inicio</a> / <a href={url('productos/')} class="hover:text-marca-700">Productos</a> /
+    <span class="text-slate-700">{categoria.nombre}</span>
+  </nav>
+  <h1 class="text-3xl font-bold text-slate-900">{categoria.nombre}</h1>
+  <p class="mb-6 text-slate-600">{categoria.descripcion}</p>
+  <Catalogo productos={productos} categoriaFija={categoria.id} client:load />
+</Base>
