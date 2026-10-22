@@ -21,7 +21,7 @@ export default function AgregarAlCarro({ producto, conCantidad = false, compacto
 
   if (producto.stock === 0) {
     return (
-      <button disabled className="w-full cursor-not-allowed rounded-lg bg-slate-200 px-4 py-2.5 text-sm font-semibold text-slate-500">
+      <button disabled className="w-full cursor-not-allowed rounded-lg bg-superficie-2 px-4 py-2.5 text-sm font-semibold text-tenue">
         Sin stock
       </button>
     );
@@ -40,10 +40,10 @@ export default function AgregarAlCarro({ producto, conCantidad = false, compacto
   return (
     <div className="flex gap-2">
       {conCantidad && (
-        <div className="flex items-center rounded-lg border border-slate-300 bg-white">
+        <div className="flex items-center rounded-lg border border-borde-fuerte bg-superficie">
           <button
             type="button"
-            className="px-3 py-2.5 text-lg leading-none text-slate-600 hover:text-marca-700 disabled:opacity-30"
+            className="px-3 py-2.5 text-lg leading-none text-texto-2 hover:text-acento disabled:opacity-30"
             onClick={() => setCantidad((c) => Math.max(1, c - 1))}
             disabled={cantidad <= 1}
             aria-label="Disminuir cantidad"
@@ -55,7 +55,7 @@ export default function AgregarAlCarro({ producto, conCantidad = false, compacto
           </span>
           <button
             type="button"
-            className="px-3 py-2.5 text-lg leading-none text-slate-600 hover:text-marca-700 disabled:opacity-30"
+            className="px-3 py-2.5 text-lg leading-none text-texto-2 hover:text-acento disabled:opacity-30"
             onClick={() => setCantidad((c) => Math.min(stock, c + 1))}
             disabled={cantidad >= stock}
             aria-label="Aumentar cantidad"
@@ -69,7 +69,7 @@ export default function AgregarAlCarro({ producto, conCantidad = false, compacto
         onClick={onAgregar}
         className={`flex-1 rounded-lg font-semibold text-white transition-colors active:scale-[0.98] ${
           compacto ? 'px-3 py-2 text-sm' : 'px-4 py-2.5'
-        } ${agregado ? 'bg-emerald-600' : requiereReceta ? 'bg-amber-600 hover:bg-amber-700' : 'bg-marca-700 hover:bg-marca-800'}`}
+        } ${agregado ? 'bg-emerald-600' : requiereReceta ? 'bg-amber-700 hover:bg-amber-800' : 'bg-marca-700 hover:bg-marca-800'}`}
       >
         {agregado ? '✓ En el carro' : etiqueta}
       </button>

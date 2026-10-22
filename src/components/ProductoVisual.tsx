@@ -33,7 +33,7 @@ export default function ProductoVisual({ categoria, tamano = 'md', className = '
   const cat = categoriaPorId(categoria);
   const icono = { sm: 'size-7', md: 'size-14', lg: 'size-28' }[tamano];
   return (
-    <div className={`grid place-items-center rounded-xl ${cat?.fondo ?? 'bg-slate-100'} ${className}`} aria-hidden="true">
+    <div className={`grid place-items-center rounded-xl ${cat?.fondo ?? 'bg-superficie-2'} ${className}`} aria-hidden="true">
       <svg
         viewBox="0 0 24 24"
         fill="none"
@@ -41,7 +41,7 @@ export default function ProductoVisual({ categoria, tamano = 'md', className = '
         strokeWidth={1.6}
         strokeLinecap="round"
         strokeLinejoin="round"
-        className={`${icono} ${cat?.tinta ?? 'text-slate-500'}`}
+        className={`${icono} ${cat?.tinta ?? 'text-tenue'}`}
       >
         {ICONOS[categoria]}
       </svg>

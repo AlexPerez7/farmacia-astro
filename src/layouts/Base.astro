@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import CarroBoton from '../components/CarroBoton';
 import CarroDrawer from '../components/CarroDrawer';
+import SelectorTema from '../components/SelectorTema';
 import { CATEGORIAS } from '../lib/categorias';
 import { ENVIO_GRATIS_DESDE, NOMBRE_TIENDA, clp } from '../lib/tienda';
 import { url } from '../lib/url';
@@ -21,8 +22,20 @@ const rutaActual = Astro.url.pathname;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Fija el tema antes del primer pintado para evitar el destello. Misma clave que src/stores/tema.ts. -->
+    <script is:inline>
+      (() => {
+        let tema = 'sistema';
+        try {
+          tema = localStorage.getItem('pulso:tema') || 'sistema';
+        } catch {}
+        const oscuro = tema === 'oscuro' || (tema !== 'claro' && matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.dataset.theme = oscuro ? 'dark' : 'light';
+      })();
+    </script>
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#0f766e" />
+    <!-- Coincide con la franja superior (marca-900), igual en ambos temas. -->
+    <meta name="theme-color" content="#134e4a" />
     <meta property="og:title" content={tituloCompleto} />
     <meta property="og:description" content={description} />
     <link rel="icon" type="image/svg+xml" href={url('favicon.svg')} />
@@ -33,7 +46,7 @@ const rutaActual = Astro.url.pathname;
     <title>{tituloCompleto}</title>
   </head>
   <body class="flex min-h-dvh flex-col font-sans antialiased">
-    <a href="#contenido" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-white focus:px-4 focus:py-2">
+    <a href="#contenido" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-superficie focus:px-4 focus:py-2">
       Saltar al contenido
     </a>
 
@@ -41,24 +54,29 @@ const rutaActual = Astro.url.pathname;
       Despacho gratis en compras sobre {clp(ENVIO_GRATIS_DESDE)} · Sitio de demostración
     </div>
 
-    <header class="sticky top-0 z-40 border-b border-slate-200 bg-white/90 backdrop-blur">
-      <div class="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3">
+    <header class="sticky top-0 z-40 border-b border-borde bg-superficie/90 backdrop-blur">
+      <div class="mx-auto flex max-w-7xl items-center gap-3 px-4 py-3 sm:gap-4">
         <a href={url('')} class="flex shrink-0 items-center gap-2" aria-label={`${NOMBRE_TIENDA}, inicio`}>
           <img src={url('favicon.svg')} alt="" width="32" height="32" />
-          <span class="text-lg font-extrabold tracking-tight text-marca-800">Farmacia <span class="text-marca-600">Pulso</span></span>
+          <span class="hidden text-lg font-extrabold tracking-tight text-acento min-[360px]:inline">Farmacia <span class="text-marca-600 dark:text-marca-400">Pulso</span></span>
         </a>
         <form action={url('productos/')} method="get" role="search" class="hidden flex-1 md:block">
           <input
             type="search"
             name="q"
             placeholder="¿Qué estás buscando?"
-            class="w-full max-w-xl rounded-full border border-slate-300 bg-slate-50 px-4 py-2 text-sm outline-none focus:border-marca-600 focus:bg-white focus:ring-2 focus:ring-marca-100"
+            class="w-full max-w-xl rounded-full border border-borde-fuerte bg-superficie-2 px-4 py-2 text-sm outline-none focus:border-marca-600 focus:bg-superficie focus:ring-2 focus:ring-acento-suave"
             aria-label="Buscar productos"
           />
         </form>
-        <nav class="ml-auto flex items-center gap-2 md:ml-0">
-          <a href={url('productos/')} class="rounded-full px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-100">Productos</a>
-          <CarroBoton client:only="react" />
+        <nav class="ml-auto flex items-center gap-1 sm:gap-2 md:ml-0">
+          <a href={url('productos/')} class="hidden rounded-full px-3 py-2 text-sm font-semibold text-texto hover:bg-superficie-2 sm:block">Productos</a>
+          <SelectorTema client:only="react">
+            <span slot="fallback" class="block size-10"></span>
+          </SelectorTema>
+          <CarroBoton client:only="react">
+            <span slot="fallback" class="block h-9 w-14 rounded-full bg-marca-700 sm:w-24"></span>
+          </CarroBoton>
         </nav>
       </div>
       <form action={url('productos/')} method="get" role="search" class="px-4 pb-3 md:hidden">
@@ -66,12 +84,15 @@ const rutaActual = Astro.url.pathname;
           type="search"
           name="q"
           placeholder="¿Qué estás buscando?"
-          class="w-full rounded-full border border-slate-300 bg-slate-50 px-4 py-2 text-base outline-none focus:border-marca-600 focus:bg-white"
+          class="w-full rounded-full border border-borde-fuerte bg-superficie-2 px-4 py-2 text-base outline-none focus:border-marca-600 focus:bg-superficie"
           aria-label="Buscar productos"
         />
       </form>
-      <nav aria-label="Categorías" class="border-t border-slate-100">
-        <ul class="mx-auto flex max-w-7xl gap-1 overflow-x-auto px-4 py-2 text-sm [scrollbar-width:none]">
+      <nav aria-label="Categorías" class="border-t border-borde">
+        <!-- El degradado en los bordes avisa que la lista se desplaza en horizontal (bajo lg, donde no caben todas). -->
+        <ul
+          class="mx-auto flex max-w-7xl gap-1 overflow-x-auto px-4 py-2 text-sm [scrollbar-width:none] max-lg:[mask-image:linear-gradient(to_right,transparent,black_16px,black_calc(100%-24px),transparent)]"
+        >
           {
             CATEGORIAS.map((c) => {
               const href = url(`categoria/${c.id}/`);
@@ -81,7 +102,7 @@ const rutaActual = Astro.url.pathname;
                     href={href}
                     class:list={[
                       'block rounded-full px-3 py-1 font-medium',
-                      rutaActual === href ? 'bg-marca-100 text-marca-800' : 'text-slate-600 hover:bg-slate-100',
+                      rutaActual === href ? 'bg-acento-suave text-acento' : 'text-texto-2 hover:bg-superficie-2',
                     ]}
                     aria-current={rutaActual === href ? 'page' : undefined}
                   >
@@ -99,22 +120,22 @@ const rutaActual = Astro.url.pathname;
       <slot />
     </main>
 
-    <footer class="mt-12 border-t border-slate-200 bg-white">
-      <div class="mx-auto grid max-w-7xl gap-8 px-4 py-10 text-sm text-slate-600 sm:grid-cols-3">
+    <footer class="mt-12 border-t border-borde bg-superficie">
+      <div class="mx-auto grid max-w-7xl gap-8 px-4 py-10 text-sm text-texto-2 sm:grid-cols-3">
         <div>
-          <p class="font-bold text-marca-800">{NOMBRE_TIENDA}</p>
+          <p class="font-bold text-acento">{NOMBRE_TIENDA}</p>
           <p class="mt-2">Químico farmacéutico responsable: Q.F. Ficticio Ejemplo.</p>
           <p>Atención: lunes a domingo, 9:00 a 22:00.</p>
         </div>
         <div>
-          <p class="font-semibold text-slate-900">Tienda</p>
+          <p class="font-semibold text-texto">Tienda</p>
           <ul class="mt-2 space-y-1">
-            <li><a href={url('productos/')} class="hover:text-marca-700">Todos los productos</a></li>
-            <li><a href={url('carro/')} class="hover:text-marca-700">Mi carro</a></li>
-            <li><a href={url('categoria/medicamentos/')} class="hover:text-marca-700">Medicamentos</a></li>
+            <li><a href={url('productos/')} class="hover:text-acento">Todos los productos</a></li>
+            <li><a href={url('carro/')} class="hover:text-acento">Mi carro</a></li>
+            <li><a href={url('categoria/medicamentos/')} class="hover:text-acento">Medicamentos</a></li>
           </ul>
         </div>
-        <div class="rounded-xl bg-amber-50 p-4 text-amber-900">
+        <div class="rounded-xl bg-aviso-fondo p-4 text-aviso-texto">
           <p class="font-semibold">Proyecto de portafolio</p>
           <p class="mt-1">
             {NOMBRE_TIENDA} es una marca ficticia. Productos, precios, laboratorios y sucursales son inventados. No se venden medicamentos ni se procesan pagos.

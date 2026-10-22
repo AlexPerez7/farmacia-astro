@@ -17,9 +17,9 @@ export default function Confirmacion() {
 
   if (!pedido) {
     return (
-      <div className="rounded-2xl border border-slate-200 bg-white p-10 text-center">
-        <p className="text-slate-600">No encontramos un pedido reciente.</p>
-        <a href={url('productos/')} className="mt-4 inline-block font-semibold text-marca-700 hover:underline">
+      <div className="rounded-2xl border border-borde bg-superficie p-10 text-center">
+        <p className="text-texto-2">No encontramos un pedido reciente.</p>
+        <a href={url('productos/')} className="mt-4 inline-block font-semibold text-acento hover:underline">
           Ir a la tienda
         </a>
       </div>
@@ -30,22 +30,22 @@ export default function Confirmacion() {
 
   return (
     <div className="mx-auto max-w-2xl space-y-6">
-      <div className="rounded-2xl border border-emerald-200 bg-white p-8 text-center">
-        <div className="mx-auto mb-4 grid size-14 place-items-center rounded-full bg-emerald-100 text-2xl text-emerald-700">✓</div>
+      <div className="rounded-2xl border border-emerald-200 dark:border-emerald-900 bg-superficie p-8 text-center">
+        <div className="mx-auto mb-4 grid size-14 place-items-center rounded-full bg-emerald-100 dark:bg-emerald-400/15 text-2xl text-emerald-700 dark:text-emerald-300">✓</div>
         <h1 className="text-2xl font-bold">¡Gracias, {pedido.nombre.split(' ')[0]}!</h1>
-        <p className="mt-2 text-slate-600">
+        <p className="mt-2 text-texto-2">
           Tu pedido <strong>{pedido.numero}</strong> fue recibido el {fecha}.
         </p>
-        <p className="text-sm text-slate-500">Enviaríamos la confirmación a {pedido.email} (es una demo, no se envía nada).</p>
+        <p className="text-sm text-tenue">Enviaríamos la confirmación a {pedido.email} (es una demo, no se envía nada).</p>
       </div>
 
-      <div className="rounded-2xl border border-slate-200 bg-white p-6">
+      <div className="rounded-2xl border border-borde bg-superficie p-6">
         <h2 className="font-bold">{pedido.entrega === 'despacho' ? 'Despacho a' : 'Retiro en'}</h2>
-        <p className="text-slate-600">{pedido.destino}</p>
+        <p className="text-texto-2">{pedido.destino}</p>
 
         {pedido.items.length > 0 && (
           <>
-            <h3 className="mt-5 text-sm font-semibold uppercase tracking-wide text-slate-500">Pagado en línea</h3>
+            <h3 className="mt-5 text-sm font-semibold uppercase tracking-wide text-tenue">Pagado en línea</h3>
             <ul className="mt-2 space-y-1 text-sm">
               {pedido.items.map((i) => (
                 <li key={i.id} className="flex justify-between">
@@ -60,7 +60,7 @@ export default function Confirmacion() {
         )}
         {pedido.reservas.length > 0 && (
           <>
-            <h3 className="mt-5 text-sm font-semibold uppercase tracking-wide text-amber-700">Reservado (presenta tu receta en sucursal)</h3>
+            <h3 className="mt-5 text-sm font-semibold uppercase tracking-wide text-aviso-texto">Reservado (presenta tu receta en sucursal)</h3>
             <ul className="mt-2 space-y-1 text-sm">
               {pedido.reservas.map((i) => (
                 <li key={i.id} className="flex justify-between">
@@ -73,9 +73,9 @@ export default function Confirmacion() {
             </ul>
           </>
         )}
-        <dl className="mt-5 space-y-1 border-t border-slate-100 pt-4 text-sm">
+        <dl className="mt-5 space-y-1 border-t border-borde pt-4 text-sm">
           <div className="flex justify-between">
-            <dt className="text-slate-600">Despacho</dt>
+            <dt className="text-texto-2">Despacho</dt>
             <dd>{pedido.envio === 0 ? 'Gratis' : clp(pedido.envio)}</dd>
           </div>
           <div className="flex justify-between text-base font-bold">
@@ -85,7 +85,7 @@ export default function Confirmacion() {
         </dl>
       </div>
 
-      <a href={url('')} className="block text-center font-semibold text-marca-700 hover:underline">
+      <a href={url('')} className="block text-center font-semibold text-acento hover:underline">
         Volver al inicio
       </a>
     </div>

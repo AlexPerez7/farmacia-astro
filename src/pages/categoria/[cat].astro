@@ -14,11 +14,11 @@ const productos = (await getCollection('productos', (p) => p.data.categoria === 
 ---
 
 <Base title={categoria.nombre} description={`${categoria.nombre}: ${categoria.descripcion}. Compra en línea con despacho a domicilio.`}>
-  <nav aria-label="Ruta" class="mb-2 text-sm text-slate-500">
-    <a href={url('')} class="hover:text-marca-700">Inicio</a> / <a href={url('productos/')} class="hover:text-marca-700">Productos</a> /
-    <span class="text-slate-700">{categoria.nombre}</span>
+  <nav aria-label="Ruta" class="mb-2 text-sm text-tenue">
+    <a href={url('')} class="hover:text-acento">Inicio</a> / <a href={url('productos/')} class="hover:text-acento">Productos</a> /
+    <span class="text-texto">{categoria.nombre}</span>
   </nav>
-  <h1 class="text-3xl font-bold text-slate-900">{categoria.nombre}</h1>
-  <p class="mb-6 text-slate-600">{categoria.descripcion}</p>
+  <h1 class="text-3xl font-bold text-texto">{categoria.nombre}</h1>
+  <p class="mb-6 text-texto-2">{categoria.descripcion}</p>
   <Catalogo productos={productos} categoriaFija={categoria.id} client:load />
 </Base>

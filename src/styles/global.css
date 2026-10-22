@@ -1,15 +1,77 @@
 @import "tailwindcss";
 
+/* `dark:` se activa con data-theme="dark" en <html> (lo fija el script de Base.astro). */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 @theme {
   --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
   --color-marca-50: #f0fdfa;
   --color-marca-100: #ccfbf1;
   --color-marca-200: #99f6e4;
+  --color-marca-300: #5eead4;
+  --color-marca-400: #2dd4bf;
   --color-marca-500: #14b8a6;
   --color-marca-600: #0d9488;
   --color-marca-700: #0f766e;
   --color-marca-800: #115e59;
   --color-marca-900: #134e4a;
+  --color-marca-950: #042f2e;
+
+  /* Colores semánticos: los componentes usan estos y cada tema los redefine. */
+  --color-fondo: #f8fafc;
+  --color-superficie: #ffffff;
+  --color-superficie-2: #f1f5f9;
+  --color-borde: #e2e8f0;
+  --color-borde-fuerte: #cbd5e1;
+  --color-texto: #0f172a;
+  --color-texto-2: #475569;
+  --color-tenue: #5b6779; /* slate-500 da 4,34:1 sobre superficie-2; este cumple AA */
+  --color-acento: #0f766e;
+  --color-acento-suave: #f0fdfa;
+  --color-aviso-fondo: #fffbeb;
+  --color-aviso-texto: #78350f;
+  --color-aviso-borde: #fde68a;
+}
+
+/* Valores del tema oscuro. Se repiten para el respaldo sin JavaScript. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --color-fondo: #020617;
+  --color-superficie: #0f172a;
+  --color-superficie-2: #1e293b;
+  --color-borde: #1e293b;
+  --color-borde-fuerte: #334155;
+  --color-texto: #f8fafc;
+  --color-texto-2: #cbd5e1;
+  --color-tenue: #94a3b8;
+  --color-acento: #5eead4;
+  --color-acento-suave: rgb(20 184 166 / 0.14);
+  --color-aviso-fondo: rgb(245 158 11 / 0.12);
+  --color-aviso-texto: #fde68a;
+  --color-aviso-borde: rgb(245 158 11 / 0.3);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    color-scheme: dark;
+    --color-fondo: #020617;
+    --color-superficie: #0f172a;
+    --color-superficie-2: #1e293b;
+    --color-borde: #1e293b;
+    --color-borde-fuerte: #334155;
+    --color-texto: #f8fafc;
+    --color-texto-2: #cbd5e1;
+    --color-tenue: #94a3b8;
+    --color-acento: #5eead4;
+    --color-acento-suave: rgb(20 184 166 / 0.14);
+    --color-aviso-fondo: rgb(245 158 11 / 0.12);
+    --color-aviso-texto: #fde68a;
+    --color-aviso-borde: rgb(245 158 11 / 0.3);
+  }
+}
+
+:root {
+  color-scheme: light;
 }
 
 html {
@@ -17,8 +79,8 @@ html {
 }
 
 body {
-  background-color: var(--color-slate-50);
-  color: var(--color-slate-800);
+  background-color: var(--color-fondo);
+  color: var(--color-texto);
   -webkit-tap-highlight-color: transparent;
 }
 

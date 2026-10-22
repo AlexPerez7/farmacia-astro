@@ -38,9 +38,9 @@ export default function Checkout() {
 
   if (r.unidades === 0) {
     return (
-      <div className="rounded-2xl border border-dashed border-slate-300 bg-white p-12 text-center">
-        <p className="text-lg text-slate-600">No hay productos para pagar.</p>
-        <a href={url('productos/')} className="mt-4 inline-block font-semibold text-marca-700 hover:underline">
+      <div className="rounded-2xl border border-dashed border-borde-fuerte bg-superficie p-12 text-center">
+        <p className="text-lg text-texto-2">No hay productos para pagar.</p>
+        <a href={url('productos/')} className="mt-4 inline-block font-semibold text-acento hover:underline">
           Volver a la tienda
         </a>
       </div>
@@ -102,19 +102,19 @@ export default function Checkout() {
     location.href = url('confirmacion/');
   }
 
-  const campo = 'w-full rounded-lg border bg-white px-3 py-2.5 text-base outline-none focus:border-marca-600 focus:ring-2 focus:ring-marca-100';
-  const borde = (k: keyof Errores) => (errores[k] ? 'border-red-400' : 'border-slate-300');
+  const campo = 'w-full rounded-lg border bg-superficie px-3 py-2.5 text-base outline-none focus:border-marca-600 focus:ring-2 focus:ring-acento-suave';
+  const borde = (k: keyof Errores) => (errores[k] ? 'border-red-400' : 'border-borde-fuerte');
   const error = (k: keyof Errores) =>
     errores[k] && (
-      <p id={`error-${k}`} className="mt-1 text-xs text-red-600">
+      <p id={`error-${k}`} className="mt-1 text-xs text-red-600 dark:text-red-400">
         {errores[k]}
       </p>
     );
 
   return (
-    <form onSubmit={onSubmit} noValidate className="grid gap-6 lg:grid-cols-[1fr_360px]">
+    <form onSubmit={onSubmit} noValidate className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_360px]">
       <div className="space-y-6">
-        <section className="rounded-2xl border border-slate-200 bg-white p-5">
+        <section className="rounded-2xl border border-borde bg-superficie p-5">
           <h2 className="mb-4 font-bold">1. Tus datos</h2>
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="sm:col-span-2">
@@ -150,20 +150,20 @@ export default function Checkout() {
           </div>
         </section>
 
-        <section className="rounded-2xl border border-slate-200 bg-white p-5">
+        <section className="rounded-2xl border border-borde bg-superficie p-5">
           <h2 className="mb-4 font-bold">2. Entrega</h2>
           {soloReservas ? (
-            <p className="mb-4 rounded-xl bg-amber-50 p-3 text-sm text-amber-900">Tu carro solo tiene productos con receta: se retiran en sucursal.</p>
+            <p className="mb-4 rounded-xl bg-aviso-fondo p-3 text-sm text-aviso-texto">Tu carro solo tiene productos con receta: se retiran en sucursal.</p>
           ) : (
-            <div className="mb-4 grid grid-cols-2 gap-3">
+            <div className="mb-4 grid gap-3 sm:grid-cols-2">
               {(['despacho', 'retiro'] as const).map((op) => (
                 <label
                   key={op}
-                  className={`cursor-pointer rounded-xl border-2 p-3 text-sm ${entrega === op ? 'border-marca-600 bg-marca-50' : 'border-slate-200'}`}
+                  className={`cursor-pointer rounded-xl border-2 p-3 text-sm ${entrega === op ? 'border-marca-600 bg-acento-suave' : 'border-borde'}`}
                 >
                   <input type="radio" name="entrega" value={op} checked={entrega === op} onChange={() => setEntrega(op)} className="sr-only" />
                   <span className="block font-semibold">{op === 'despacho' ? 'Despacho a domicilio' : 'Retiro en sucursal'}</span>
-                  <span className="text-slate-600">{op === 'despacho' ? (r.envio === 0 ? 'Gratis' : clp(r.envio)) : 'Gratis'}</span>
+                  <span className="text-texto-2">{op === 'despacho' ? (r.envio === 0 ? 'Gratis' : clp(r.envio)) : 'Gratis'}</span>
                 </label>
               ))}
             </div>
@@ -190,33 +190,33 @@ export default function Checkout() {
           ) : (
             <div className="space-y-2">
               {SUCURSALES.map((s) => (
-                <label key={s.id} className={`flex cursor-pointer gap-3 rounded-xl border p-3 text-sm ${sucursal === s.id ? 'border-marca-600 bg-marca-50' : 'border-slate-200'}`}>
+                <label key={s.id} className={`flex cursor-pointer gap-3 rounded-xl border p-3 text-sm ${sucursal === s.id ? 'border-marca-600 bg-acento-suave' : 'border-borde'}`}>
                   <input type="radio" name="sucursal" checked={sucursal === s.id} onChange={() => setSucursal(s.id)} className="mt-0.5 accent-marca-700" />
                   <span>
                     <span className="block font-semibold">{s.nombre}</span>
-                    <span className="text-slate-600">{s.direccion}</span>
+                    <span className="text-texto-2">{s.direccion}</span>
                   </span>
                 </label>
               ))}
             </div>
           )}
           {r.conReceta.length > 0 && !soloReservas && (
-            <p className="mt-4 text-sm text-amber-800">
+            <p className="mt-4 text-sm text-aviso-texto">
               Los productos con receta se reservan en {SUCURSALES.find((s) => s.id === sucursal)?.nombre}, aunque elijas despacho para el resto.
             </p>
           )}
         </section>
 
         {total > 0 && (
-          <section className="rounded-2xl border border-slate-200 bg-white p-5">
+          <section className="rounded-2xl border border-borde bg-superficie p-5">
             <h2 className="mb-1 font-bold">3. Pago</h2>
-            <p className="mb-4 text-sm text-slate-500">Demo: no se realiza ningún cobro ni se piden datos de tarjeta.</p>
+            <p className="mb-4 text-sm text-tenue">Demo: no se realiza ningún cobro ni se piden datos de tarjeta.</p>
             <div className="space-y-2">
               {[
                 { id: 'webpay', nombre: 'Tarjeta de débito o crédito (simulado)' },
                 { id: 'transferencia', nombre: 'Transferencia bancaria (simulado)' },
               ].map((m) => (
-                <label key={m.id} className={`flex cursor-pointer items-center gap-3 rounded-xl border p-3 text-sm ${pago === m.id ? 'border-marca-600 bg-marca-50' : 'border-slate-200'}`}>
+                <label key={m.id} className={`flex cursor-pointer items-center gap-3 rounded-xl border p-3 text-sm ${pago === m.id ? 'border-marca-600 bg-acento-suave' : 'border-borde'}`}>
                   <input type="radio" name="pago" checked={pago === m.id} onChange={() => setPago(m.id)} className="accent-marca-700" />
                   {m.nombre}
                 </label>
@@ -226,35 +226,35 @@ export default function Checkout() {
         )}
       </div>
 
-      <aside className="h-fit space-y-4 rounded-2xl border border-slate-200 bg-white p-5 lg:sticky lg:top-24">
+      <aside className="h-fit space-y-4 rounded-2xl border border-borde bg-superficie p-5 lg:sticky lg:top-32">
         <h2 className="font-bold">Tu pedido</h2>
         <ul className="space-y-2 text-sm">
           {[...r.directos, ...r.conReceta].map((i) => (
             <li key={i.id} className="flex justify-between gap-2">
               <span className="min-w-0">
-                <span className="text-slate-500">{i.cantidad}×</span> {i.nombre}
-                {i.requiereReceta && <span className="ml-1 text-xs font-semibold text-amber-700">(reserva)</span>}
+                <span className="text-tenue">{i.cantidad}×</span> {i.nombre}
+                {i.requiereReceta && <span className="ml-1 text-xs font-semibold text-aviso-texto">(reserva)</span>}
               </span>
               <span className="shrink-0 tabular-nums">{clp(i.precio * i.cantidad)}</span>
             </li>
           ))}
         </ul>
-        <dl className="space-y-2 border-t border-slate-100 pt-3 text-sm">
+        <dl className="space-y-2 border-t border-borde pt-3 text-sm">
           <div className="flex justify-between">
-            <dt className="text-slate-600">Subtotal en línea</dt>
+            <dt className="text-texto-2">Subtotal en línea</dt>
             <dd className="tabular-nums">{clp(r.subtotal)}</dd>
           </div>
           <div className="flex justify-between">
-            <dt className="text-slate-600">Despacho</dt>
+            <dt className="text-texto-2">Despacho</dt>
             <dd className="tabular-nums">{envio === 0 ? 'Gratis' : clp(envio)}</dd>
           </div>
           {r.conReceta.length > 0 && (
-            <div className="flex justify-between text-amber-800">
+            <div className="flex justify-between text-aviso-texto">
               <dt>Se paga en sucursal</dt>
               <dd className="tabular-nums">{clp(r.subtotalReceta)}</dd>
             </div>
           )}
-          <div className="flex justify-between border-t border-slate-100 pt-3 text-base font-bold">
+          <div className="flex justify-between border-t border-borde pt-3 text-base font-bold">
             <dt>Total a pagar hoy</dt>
             <dd className="tabular-nums">{clp(total)}</dd>
           </div>
@@ -266,7 +266,7 @@ export default function Checkout() {
         >
           {procesando ? 'Procesando…' : total > 0 ? `Pagar ${clp(total)}` : 'Confirmar reserva'}
         </button>
-        <p className="text-center text-xs text-slate-500">Sitio de demostración. No se procesan pagos reales.</p>
+        <p className="text-center text-xs text-tenue">Sitio de demostración. No se procesan pagos reales.</p>
       </aside>
     </form>
   );

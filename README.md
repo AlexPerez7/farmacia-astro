@@ -15,7 +15,20 @@ Tienda en línea de una farmacia **ficticia**, construida como proyecto de porta
 - **Despacho gratis** sobre $25.000 con barra de progreso.
 - **Medicamentos con receta**: no se cobran en línea, se *reservan* para retiro en sucursal (simula la regulación chilena de venta de fármacos).
 - **Checkout simulado** con validación de RUT (módulo 11), teléfono chileno, despacho o retiro, y página de confirmación.
-- Diseño adaptado a móvil, accesible (labels, `aria-*`, foco, `prefers-reduced-motion`) y SEO por página.
+- **Modo oscuro** con interruptor Sistema / Claro / Oscuro, sin destello al cargar, construido sobre colores semánticos (`bg-superficie`, `text-texto`…) con contraste WCAG AA en ambos temas.
+- **Responsivo desde 320 px** hasta escritorio, con áreas táctiles de 40 px como mínimo y soporte del área segura del iPhone.
+- Accesible (labels, `aria-*`, foco, `prefers-reduced-motion`) y SEO por página.
+
+## Capturas
+
+| Claro | Oscuro |
+|---|---|
+| ![Inicio en tema claro, escritorio](docs/capturas/inicio-claro-1440.png) | ![Inicio en tema oscuro, escritorio](docs/capturas/inicio-oscuro-1440.png) |
+| ![Inicio en tema claro, celular](docs/capturas/inicio-claro-375.png) | ![Inicio en tema oscuro, celular](docs/capturas/inicio-oscuro-375.png) |
+
+## Cómo se trabaja
+
+Cada cambio se describe primero en una spec (`docs/specs/`), se aprueba y luego se implementa. El plan y el registro están en [PLAN.md](PLAN.md); las reglas para agentes en [AGENTS.md](AGENTS.md).
 
 ## Arquitectura
 

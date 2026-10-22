@@ -89,7 +89,7 @@ export default function Catalogo({ productos, categoriaFija }: Props) {
     <div className="space-y-6 text-sm">
       {!categoriaFija && (
         <fieldset>
-          <legend className="mb-2 font-semibold text-slate-900">Categoría</legend>
+          <legend className="mb-2 font-semibold text-texto">Categoría</legend>
           <div className="space-y-1.5">
             {CATEGORIAS.map((c) => (
               <label key={c.id} className="flex cursor-pointer items-center gap-2">
@@ -106,7 +106,7 @@ export default function Catalogo({ productos, categoriaFija }: Props) {
         </fieldset>
       )}
       <fieldset>
-        <legend className="mb-2 font-semibold text-slate-900">Laboratorio</legend>
+        <legend className="mb-2 font-semibold text-texto">Laboratorio</legend>
         <div className="space-y-1.5">
           {laboratorios.map((l) => (
             <label key={l} className="flex cursor-pointer items-center gap-2">
@@ -117,7 +117,7 @@ export default function Catalogo({ productos, categoriaFija }: Props) {
         </div>
       </fieldset>
       <fieldset>
-        <legend className="mb-2 font-semibold text-slate-900">Precio máximo</legend>
+        <legend className="mb-2 font-semibold text-texto">Precio máximo</legend>
         <input
           type="range"
           min={0}
@@ -128,10 +128,10 @@ export default function Catalogo({ productos, categoriaFija }: Props) {
           className="w-full accent-marca-700"
           aria-label="Precio máximo"
         />
-        <p className="mt-1 text-slate-600">Hasta {clp(precioMax)}</p>
+        <p className="mt-1 text-texto-2">Hasta {clp(precioMax)}</p>
       </fieldset>
       <fieldset className="space-y-1.5">
-        <legend className="mb-2 font-semibold text-slate-900">Disponibilidad</legend>
+        <legend className="mb-2 font-semibold text-texto">Disponibilidad</legend>
         <label className="flex cursor-pointer items-center gap-2">
           <input type="checkbox" className="size-4 accent-marca-700" checked={soloDirecta} onChange={(e) => setSoloDirecta(e.target.checked)} />
           Solo venta directa (sin receta)
@@ -142,7 +142,7 @@ export default function Catalogo({ productos, categoriaFija }: Props) {
         </label>
       </fieldset>
       {hayFiltros ? (
-        <button type="button" onClick={limpiar} className="font-semibold text-marca-700 hover:underline">
+        <button type="button" onClick={limpiar} className="font-semibold text-acento hover:underline">
           Limpiar filtros
         </button>
       ) : null}
@@ -153,7 +153,7 @@ export default function Catalogo({ productos, categoriaFija }: Props) {
     <div className="grid gap-6 md:grid-cols-[220px_1fr]">
       <aside>
         {/* En móvil los filtros van plegados para no empujar los productos hacia abajo. */}
-        <details className="rounded-xl border border-slate-200 bg-white p-4 md:hidden">
+        <details className="rounded-xl border border-borde bg-superficie p-4 md:hidden">
           <summary className="cursor-pointer font-semibold">Filtros</summary>
           <div className="mt-4">{filtros}</div>
         </details>
@@ -167,13 +167,13 @@ export default function Catalogo({ productos, categoriaFija }: Props) {
             value={busqueda}
             onChange={(e) => setBusqueda(e.target.value)}
             placeholder="Buscar por nombre, principio activo o laboratorio…"
-            className="w-full flex-1 rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-base outline-none focus:border-marca-600 focus:ring-2 focus:ring-marca-100"
+            className="w-full flex-1 rounded-lg border border-borde-fuerte bg-superficie px-4 py-2.5 text-base outline-none focus:border-marca-600 focus:ring-2 focus:ring-acento-suave"
             aria-label="Buscar productos"
           />
           <select
             value={orden}
             onChange={(e) => setOrden(e.target.value as Orden)}
-            className="rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-base sm:text-sm"
+            className="rounded-lg border border-borde-fuerte bg-superficie px-3 py-2.5 text-base sm:text-sm"
             aria-label="Ordenar por"
           >
             <option value="relevancia">Más relevantes</option>
@@ -183,11 +183,11 @@ export default function Catalogo({ productos, categoriaFija }: Props) {
             <option value="nombre">Nombre A–Z</option>
           </select>
         </div>
-        <p className="mb-4 text-sm text-slate-500" aria-live="polite">
+        <p className="mb-4 text-sm text-tenue" aria-live="polite">
           {resultado.length} {resultado.length === 1 ? 'producto' : 'productos'}
         </p>
         {resultado.length === 0 ? (
-          <div className="rounded-2xl border border-dashed border-slate-300 p-10 text-center text-slate-500">
+          <div className="rounded-2xl border border-dashed border-borde-fuerte p-10 text-center text-tenue">
             No encontramos productos con esos filtros.
           </div>
         ) : (

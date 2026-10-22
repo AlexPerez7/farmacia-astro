@@ -27,10 +27,10 @@ const dcto = descuento(producto);
 ---
 
 <Base title={producto.nombre} description={`${producto.nombre} ${producto.presentacion} de ${producto.laboratorio}. ${producto.descripcion}`}>
-  <nav aria-label="Ruta" class="mb-4 text-sm text-slate-500">
-    <a href={url('')} class="hover:text-marca-700">Inicio</a> /
-    <a href={url(`categoria/${categoria.id}/`)} class="hover:text-marca-700">{categoria.nombre}</a> /
-    <span class="text-slate-700">{producto.nombre}</span>
+  <nav aria-label="Ruta" class="mb-4 flex min-w-0 items-center gap-1 whitespace-nowrap text-sm text-tenue">
+    <a href={url('')} class="shrink-0 hover:text-acento">Inicio</a> /
+    <a href={url(`categoria/${categoria.id}/`)} class="shrink-0 hover:text-acento">{categoria.nombre}</a> /
+    <span class="truncate text-texto" aria-current="page">{producto.nombre}</span>
   </nav>
 
   <div class="grid gap-8 md:grid-cols-2">
@@ -40,21 +40,21 @@ const dcto = descuento(producto);
     </div>
 
     <div>
-      <p class="text-sm font-semibold uppercase tracking-wide text-slate-500">{producto.laboratorio}</p>
-      <h1 class="mt-1 text-3xl font-bold leading-tight text-slate-900">{producto.nombre}</h1>
-      <p class="mt-1 text-slate-600">{producto.presentacion}</p>
+      <p class="text-sm font-semibold uppercase tracking-wide text-tenue">{producto.laboratorio}</p>
+      <h1 class="mt-1 text-3xl font-bold leading-tight text-texto">{producto.nombre}</h1>
+      <p class="mt-1 text-texto-2">{producto.presentacion}</p>
 
       <p class="mt-6 flex items-baseline gap-3">
-        <span class="text-3xl font-extrabold text-slate-900">{clp(producto.precio)}</span>
-        {producto.precioAnterior && <span class="text-lg text-slate-400 line-through">{clp(producto.precioAnterior)}</span>}
+        <span class="text-3xl font-extrabold text-texto">{clp(producto.precio)}</span>
+        {producto.precioAnterior && <span class="text-lg text-tenue line-through">{clp(producto.precioAnterior)}</span>}
       </p>
-      <p class:list={['mt-1 text-sm font-medium', producto.stock === 0 ? 'text-red-600' : producto.stock <= 5 ? 'text-orange-600' : 'text-emerald-700']}>
+      <p class:list={['mt-1 text-sm font-medium', producto.stock === 0 ? 'text-red-600 dark:text-red-400' : producto.stock <= 5 ? 'text-orange-600 dark:text-orange-400' : 'text-emerald-700 dark:text-emerald-300']}>
         {producto.stock === 0 ? 'Sin stock' : producto.stock <= 5 ? `¡Últimas ${producto.stock} unidades!` : 'Disponible'}
       </p>
 
       {
         producto.requiereReceta && (
-          <div class="mt-6 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+          <div class="mt-6 rounded-2xl border border-aviso-borde bg-aviso-fondo p-4 text-sm text-aviso-texto">
             <p class="font-semibold">Este medicamento requiere receta médica</p>
             <p class="mt-1">
               Puedes reservarlo en línea y retirarlo en sucursal, donde el químico farmacéutico validará tu receta. El pago se realiza al retirar.
@@ -67,30 +67,30 @@ const dcto = descuento(producto);
         <AgregarAlCarro producto={producto} conCantidad client:load />
       </div>
 
-      <dl class="mt-8 divide-y divide-slate-200 border-y border-slate-200 text-sm">
+      <dl class="mt-8 divide-y divide-borde border-y border-borde text-sm">
         {
           producto.principioActivo && (
-            <div class="flex justify-between py-3">
-              <dt class="text-slate-500">Principio activo</dt>
-              <dd class="font-medium">{producto.principioActivo}</dd>
+            <div class="flex justify-between gap-4 py-3">
+              <dt class="text-tenue">Principio activo</dt>
+              <dd class="text-right font-medium">{producto.principioActivo}</dd>
             </div>
           )
         }
-        <div class="flex justify-between py-3">
-          <dt class="text-slate-500">Condición de venta</dt>
-          <dd class="font-medium">{producto.requiereReceta ? 'Receta médica' : 'Venta directa'}</dd>
+        <div class="flex justify-between gap-4 py-3">
+          <dt class="text-tenue">Condición de venta</dt>
+          <dd class="text-right font-medium">{producto.requiereReceta ? 'Receta médica' : 'Venta directa'}</dd>
         </div>
-        <div class="flex justify-between py-3">
-          <dt class="text-slate-500">Categoría</dt>
-          <dd class="font-medium">{categoria.nombre}</dd>
+        <div class="flex justify-between gap-4 py-3">
+          <dt class="text-tenue">Categoría</dt>
+          <dd class="text-right font-medium">{categoria.nombre}</dd>
         </div>
       </dl>
 
-      <h2 class="mt-8 font-bold text-slate-900">Descripción</h2>
-      <p class="mt-2 leading-relaxed text-slate-600">{producto.descripcion}</p>
+      <h2 class="mt-8 font-bold text-texto">Descripción</h2>
+      <p class="mt-2 leading-relaxed text-texto-2">{producto.descripcion}</p>
       {
         producto.categoria === 'medicamentos' && (
-          <p class="mt-4 text-xs text-slate-500">Lea las instrucciones del folleto antes de usar. Si los síntomas persisten, consulte a su médico.</p>
+          <p class="mt-4 text-xs text-tenue">Lea las instrucciones del folleto antes de usar. Si los síntomas persisten, consulte a su médico.</p>
         )
       }
     </div>
@@ -99,7 +99,7 @@ const dcto = descuento(producto);
   {
     relacionados.length > 0 && (
       <section class="mt-16">
-        <h2 class="text-2xl font-bold text-slate-900">También te puede interesar</h2>
+        <h2 class="text-2xl font-bold text-texto">También te puede interesar</h2>
         <div class="mt-4 grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
           {relacionados.map((p) => (
             <ProductoCard producto={p} client:visible />
