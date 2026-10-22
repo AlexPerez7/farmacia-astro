@@ -1,0 +1,17 @@
+---
+import Base from '../layouts/Base.astro';
+import ListaSucursales from '../components/ListaSucursales';
+import { CORTE_RETIRO_HOY } from '../lib/entrega';
+import { url } from '../lib/url';
+---
+
+<Base title="Sucursales" description="Direcciones y horarios de las sucursales de Farmacia Pulso.">
+  <h1 class="text-3xl font-bold text-texto">Sucursales</h1>
+  <p class="mb-6 text-texto-2">
+    Retira tus compras sin costo. Si compras antes de las {CORTE_RETIRO_HOY}:00, quedan listas el mismo día. Las sucursales y sus datos son ficticios.
+  </p>
+  <ListaSucursales client:load />
+  <p class="mt-6 text-sm text-texto-2">
+    ¿Tu pedido tiene productos con receta? <a href={url('ayuda/#receta')} class="font-semibold text-acento hover:underline">Así funciona la reserva</a>.
+  </p>
+</Base>

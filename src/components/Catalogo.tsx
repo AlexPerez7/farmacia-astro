@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import Fuse from 'fuse.js';
 import ProductoCard from './ProductoCard';
 import { CATEGORIAS } from '../lib/categorias';
+import { OPCIONES_FUSE } from '../lib/busqueda';
 import { clp } from '../lib/tienda';
 import { descuento, type Producto } from '../lib/tipos';
 
@@ -16,20 +17,25 @@ type Props = {
 export default function Catalogo({ productos, categoriaFija }: Props) {
   const precioTope = useMemo(() => Math.max(...productos.map((p) => p.precio)), [productos]);
   const laboratorios = useMemo(() => [...new Set(productos.map((p) => p.laboratorio))].sort(), [productos]);
+  const subcategorias = useMemo(() => [...new Set(productos.map((p) => p.subcategoria))], [productos]);
 
   const [busqueda, setBusqueda] = useState('');
   const [categorias, setCategorias] = useState<string[]>([]);
   const [labs, setLabs] = useState<string[]>([]);
+  const [subs, setSubs] = useState<string[]>([]);
   const [precioMax, setPrecioMax] = useState(precioTope);
   const [soloDirecta, setSoloDirecta] = useState(false);
   const [soloStock, setSoloStock] = useState(false);
   const [orden, setOrden] = useState<Orden>('relevancia');
 
-  // La búsqueda del header llega como ?q=...
+  // La búsqueda del header llega como ?q=... y el menú de categorías como ?sub=...
   useEffect(() => {
-    const q = new URLSearchParams(location.search).get('q');
+    const params = new URLSearchParams(location.search);
+    const q = params.get('q');
     if (q) setBusqueda(q);
-  }, []);
+    const sub = params.get('sub');
+    if (sub && subcategorias.includes(sub)) setSubs([sub]);
+  }, [subcategorias]);
 
   // Refleja la búsqueda en la URL para poder compartirla.
   useEffect(() => {
@@ -42,16 +48,7 @@ export default function Catalogo({ productos, categoriaFija }: Props) {
 
   const fuse = useMemo(
     () =>
-      new Fuse(productos, {
-        keys: [
-          { name: 'nombre', weight: 3 },
-          { name: 'principioActivo', weight: 2 },
-          'laboratorio',
-          'descripcion',
-        ],
-        threshold: 0.35,
-        ignoreLocation: true,
-      }),
+      new Fuse(productos, OPCIONES_FUSE),
     [productos],
   );
 
@@ -61,6 +58,7 @@ export default function Catalogo({ productos, categoriaFija }: Props) {
       (p) =>
         (categorias.length === 0 || categorias.includes(p.categoria)) &&
         (labs.length === 0 || labs.includes(p.laboratorio)) &&
+        (subs.length === 0 || subs.includes(p.subcategoria)) &&
         p.precio <= precioMax &&
         (!soloDirecta || !p.requiereReceta) &&
         (!soloStock || p.stock > 0),
@@ -71,15 +69,16 @@ export default function Catalogo({ productos, categoriaFija }: Props) {
     if (orden === 'descuento') ordenada.sort((a, b) => descuento(b) - descuento(a));
     if (orden === 'nombre') ordenada.sort((a, b) => a.nombre.localeCompare(b.nombre, 'es'));
     return ordenada;
-  }, [busqueda, fuse, productos, categorias, labs, precioMax, soloDirecta, soloStock, orden]);
+  }, [busqueda, fuse, productos, categorias, labs, subs, precioMax, soloDirecta, soloStock, orden]);
 
   const alternar = (lista: string[], valor: string) => (lista.includes(valor) ? lista.filter((v) => v !== valor) : [...lista, valor]);
 
-  const hayFiltros = busqueda || categorias.length || labs.length || precioMax < precioTope || soloDirecta || soloStock;
+  const hayFiltros = busqueda || categorias.length || labs.length || subs.length || precioMax < precioTope || soloDirecta || soloStock;
   function limpiar() {
     setBusqueda('');
     setCategorias([]);
     setLabs([]);
+    setSubs([]);
     setPrecioMax(precioTope);
     setSoloDirecta(false);
     setSoloStock(false);
@@ -100,6 +99,19 @@ export default function Catalogo({ productos, categoriaFija }: Props) {
                   onChange={() => setCategorias((l) => alternar(l, c.id))}
                 />
                 {c.nombre}
+              </label>
+            ))}
+          </div>
+        </fieldset>
+      )}
+      {categoriaFija && subcategorias.length > 1 && (
+        <fieldset>
+          <legend className="mb-2 font-semibold text-texto">Subcategoría</legend>
+          <div className="space-y-1.5">
+            {subcategorias.map((sc) => (
+              <label key={sc} className="flex cursor-pointer items-center gap-2">
+                <input type="checkbox" className="size-4 accent-marca-700" checked={subs.includes(sc)} onChange={() => setSubs((l) => alternar(l, sc))} />
+                {sc}
               </label>
             ))}
           </div>

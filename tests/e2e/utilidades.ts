@@ -1,4 +1,4 @@
-import type { Page } from '@playwright/test';
+import { expect, type Page } from '@playwright/test';
 
 export const PAGINAS = [
   '',
@@ -9,6 +9,12 @@ export const PAGINAS = [
   'carro/',
   'checkout/',
   'confirmacion/',
+  'seguimiento/',
+  'sucursales/',
+  'favoritos/',
+  'ayuda/',
+  'terminos/',
+  'privacidad/',
   'no-existe/',
 ];
 
@@ -38,4 +44,10 @@ export function medirDesborde(page: Page) {
       .map((el) => `<${el.tagName.toLowerCase()} class="${String(el.className).slice(0, 80)}">`);
     return { scrollWidth: document.documentElement.scrollWidth, ancho, culpables };
   });
+}
+
+/** Abre una ruta y espera a que se hidraten las islas que se pueden usar de inmediato (no las client:visible). */
+export async function abrir(page: Page, ruta = '') {
+  await page.goto(ruta);
+  await expect(page.locator('astro-island[ssr]:not([client="visible"])')).toHaveCount(0);
 }

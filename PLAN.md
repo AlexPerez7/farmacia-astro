@@ -37,7 +37,7 @@ Astro 7 · React 19 · Tailwind CSS 4 · nanostores · Fuse.js · TypeScript est
 | **1. MVP de tienda** | Catálogo, búsqueda y filtros, carro, checkout simulado, despliegue | hecha (spec 001) |
 | **2. Calidad visual** | Modo oscuro y responsividad revisada en todos los anchos | hecha (spec 002) |
 | **3. Pruebas** | Tests unitarios (Vitest), e2e y accesibilidad (Playwright + axe) en CI, deploy condicionado | hecha (spec 003) |
-| **4. Rediseño comercial** | Navegación, inicio y tarjetas al estilo de las farmacias chilenas: menú de categorías, comuna, buscador con sugerencias, carruseles, oferta relámpago, precio por unidad, favoritos, seguimiento | propuesta (spec 004) |
+| **4. Rediseño comercial** | Navegación, inicio y tarjetas al estilo de las farmacias chilenas: menú de categorías, comuna, buscador con sugerencias, carruseles, oferta relámpago, precio por unidad, favoritos, seguimiento | en curso (spec 004): parte A hecha |
 | **5. Extras de portafolio** | Imágenes de producto, Lighthouse ≥ 95 documentado | pendiente |
 
 ## 5. Decisiones
@@ -56,3 +56,4 @@ Astro 7 · React 19 · Tailwind CSS 4 · nanostores · Fuse.js · TypeScript est
 - 2026-10-21: push de las specs 001-002 y deploy. Redactada la spec 003 (tests automatizados).
 - 2026-10-21: fase 3 hecha (spec 003). 41 unitarios (Vitest) y 35 e2e (Playwright + axe) sobre el build; CI corre los tests en push y PR y solo publica desde main si pasan. axe encontró y se corrigieron 4 problemas de accesibilidad (nombre del botón del carro, enlaces de imagen sin nombre, dos contrastes). Bloqueo verificado con el PR #1 (test roto, cerrado sin fusionar). Acciones actualizadas a Node 24.
 - 2026-10-21: revisadas las portadas de Cruz Verde, Farmacias Ahumada y Salcobrand como referencia de patrones. Redactada la spec 004 (rediseño comercial).
+- 2026-10-21: spec 004 aprobada. Parte A (navegación) hecha: barra de avisos cerrable, menú de categorías (panel en escritorio, lateral en el celular), buscador con sugerencias (combobox), selector de comuna con estimación de despacho y retiro, favoritos, franja de servicios, footer completo y páginas de seguimiento, sucursales, favoritos, ayuda, términos y privacidad. Catálogo ampliado a 41 productos con subcategoría, contenido, unidad y bioequivalente. 66 unitarios y 46 e2e en verde. Los tests encontraron 3 errores reales, ya corregidos: el foco iba a un botón oculto al abrir el menú en escritorio, el acordeón del celular se cerraba con mouse, y el texto escrito antes de hidratar se perdía en el buscador. En el celular, el tema pasó al menú para que el header quepa en una fila. Siguiente: parte B (inicio y tarjetas).

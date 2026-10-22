@@ -1,0 +1,39 @@
+---
+import Texto from '../layouts/Texto.astro';
+import { CORTE_RETIRO_HOY } from '../lib/entrega';
+import { ENVIO_GRATIS_DESDE, clp } from '../lib/tienda';
+import { url } from '../lib/url';
+---
+
+<Texto title="Preguntas frecuentes" description="Despacho, retiro en sucursal, reserva con receta y pagos.">
+  <h2 id="despacho">Despacho y retiro</h2>
+  <h3>¿Cuánto demora el despacho?</h3>
+  <p>Entre uno y dos días hábiles según tu comuna. Elige tu comuna en la parte superior del sitio y verás la fecha estimada en cada producto.</p>
+  <h3>¿Cuánto cuesta?</h3>
+  <p>El despacho es gratis en compras sobre {clp(ENVIO_GRATIS_DESDE)}. Bajo ese monto tiene un costo fijo que ves antes de pagar.</p>
+  <h3>¿Puedo retirar en sucursal?</h3>
+  <p>
+    Sí, sin costo. Si compras antes de las {CORTE_RETIRO_HOY}:00, tu pedido queda listo el mismo día. Revisa direcciones y horarios en{" "}
+    <a href={url('sucursales/')}>Sucursales</a>.
+  </p>
+
+  <h2 id="receta">Reserva con receta</h2>
+  <p>Los medicamentos que requieren receta médica no se venden en línea: se <strong>reservan</strong> y se pagan en la sucursal.</p>
+  <ul>
+    <li>Agrégalos al carro con el botón <em>Reservar</em>.</li>
+    <li>Al pagar, elige la sucursal de retiro. El resto del carro puede ir a domicilio.</li>
+    <li>En la sucursal, el químico farmacéutico revisa tu receta y te entrega el medicamento.</li>
+  </ul>
+  <p>Los antibióticos requieren receta retenida, como exige la normativa sanitaria.</p>
+
+  <h2 id="seguimiento">Seguimiento de pedido</h2>
+  <p>Con el número de pedido (por ejemplo, FP-1234567) puedes ver en qué etapa va en <a href={url('seguimiento/')}>Seguimiento de pedido</a>.</p>
+
+  <h2 id="pagos">Medios de pago</h2>
+  <p>Tarjetas de débito y crédito, y transferencia bancaria. En esta demo todos los pagos son simulados: nunca se piden datos de tarjeta.</p>
+
+  <h2 id="uso-racional">Uso responsable de medicamentos</h2>
+  <p>
+    Sigue las indicaciones de tu médico y del folleto. No te automediques por periodos largos y consulta a un profesional si los síntomas persisten.
+  </p>
+</Texto>

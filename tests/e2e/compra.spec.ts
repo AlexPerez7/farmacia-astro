@@ -1,20 +1,25 @@
 import { expect, test } from '@playwright/test';
-import { ESQUEMAS } from './utilidades';
+import productos from '../../src/data/productos.json' with { type: 'json' };
+import { ESQUEMAS, abrir } from './utilidades';
+
+const VENTA_DIRECTA = productos.filter((p) => !p.requiereReceta).length;
 
 for (const esquema of ESQUEMAS) {
   test.describe(`tema ${esquema}`, () => {
     test.use({ colorScheme: esquema });
+    // Comuna ya confirmada: el aviso de la primera visita no tapa la página.
+    test.beforeEach(({ page }) => page.addInitScript(() => localStorage.setItem('pulso:comuna', 'Providencia')));
 
     test('buscar, filtrar y agregar al carro', async ({ page }) => {
-      await page.goto('productos/?q=paracetamol');
+      await abrir(page, 'productos/?q=paracetamol');
       await expect(page.locator('article')).toHaveCount(1);
 
-      // El buscador del catálogo es el último (el header tiene uno para móvil y otro para escritorio).
-      await page.getByRole('searchbox', { name: 'Buscar productos' }).last().fill('');
+      // El del header es un combobox; el searchbox es el buscador del catálogo.
+      await page.getByRole('searchbox', { name: 'Buscar productos' }).fill('');
       const filtros = page.getByText('Filtros', { exact: true });
       if (await filtros.isVisible()) await filtros.click();
       await page.getByLabel('Solo venta directa (sin receta)').filter({ visible: true }).check();
-      await expect(page.locator('article')).toHaveCount(17);
+      await expect(page.locator('article')).toHaveCount(VENTA_DIRECTA);
 
       const tarjeta = page.locator('article', { hasText: 'Ibuprofeno 400 mg' });
       await tarjeta.getByRole('button', { name: 'Agregar' }).click();
@@ -24,7 +29,7 @@ for (const esquema of ESQUEMAS) {
 
     test('el panel del carro cambia cantidades y respeta el stock', async ({ page }) => {
       // El termómetro tiene 3 unidades en stock.
-      await page.goto('productos/termometro-digital/');
+      await abrir(page, 'productos/termometro-digital/');
       await page.getByRole('button', { name: 'Agregar' }).first().click();
       const panel = page.getByRole('dialog', { name: 'Carro de compras' });
       await expect(panel).toBeVisible();
@@ -47,14 +52,14 @@ for (const esquema of ESQUEMAS) {
     });
 
     test('checkout completo con un producto con receta', async ({ page }) => {
-      await page.goto('productos/ibuprofeno-400-mg-20-comprimidos/');
+      await abrir(page, 'productos/ibuprofeno-400-mg-20-comprimidos/');
       await page.getByRole('button', { name: 'Agregar' }).first().click();
-      await page.goto('productos/amoxicilina-500-mg-21-capsulas/');
+      await abrir(page, 'productos/amoxicilina-500-mg-21-capsulas/');
       // .first(): los productos relacionados también tienen botones "Reservar".
       await page.getByRole('button', { name: 'Reservar' }).first().click();
       await expect(page.getByRole('dialog', { name: 'Carro de compras' }).getByText(/producto\(s\) con receta/)).toBeVisible();
 
-      await page.goto('checkout/');
+      await abrir(page, 'checkout/');
       const pagar = page.getByRole('button', { name: /^Pagar/ });
       await pagar.click();
       await expect(page.getByText('El RUT no es válido.')).toBeVisible();
@@ -77,7 +82,7 @@ for (const esquema of ESQUEMAS) {
       await page.waitForURL('**/confirmacion/');
       await expect(page.getByText(/Tu pedido FP-\d{7} fue recibido/)).toBeVisible();
       await expect(page.getByText('Reservado (presenta tu receta en sucursal)')).toBeVisible();
-      await expect(page.getByText('Amoxicilina 500 mg', { exact: false })).toBeVisible();
+      await expect(page.getByText('1× Amoxicilina 500 mg')).toBeVisible();
       expect(await page.evaluate(() => localStorage.getItem('pulso:carro'))).toBe('[]');
     });
   });

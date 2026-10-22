@@ -1,5 +1,5 @@
 # 004 · Rediseño inspirado en farmacias chilenas
-Estado: propuesta · Fase del PLAN: 4 · Fecha: 2026-10-21
+Estado: aprobada · Fase del PLAN: 4 · Fecha: 2026-10-21
 
 ## Objetivo
 Que Farmacia Pulso se vea y se use como una farmacia en línea chilena real, tomando los **patrones** comunes de Cruz Verde, Farmacias Ahumada y Salcobrand (revisados el 2026-10-21). Hoy el sitio parece una tienda genérica: le faltan el menú de categorías, la comuna de despacho, las ofertas con vigencia, el precio por unidad y la información sanitaria que esos sitios muestran.
@@ -102,8 +102,15 @@ Cuentas de usuario, programas de puntos, telemedicina, recetas digitales, banner
 - [ ] Ningún logo, nombre de programa, texto ni foto de las farmacias de referencia; `grep` de sus nombres en `src/` sin resultados.
 - [ ] Revisión visual en el navegador de ambas partes, en celular y escritorio, en ambos temas. Capturas del README actualizadas.
 
-## Preguntas abiertas
-1. **¿Dos partes con commits separados (A navegación, B inicio y tarjetas)?** Recomiendo que sí: el cambio es grande y así cada parte se revisa sola.
-2. **¿Ampliar el catálogo a unos 40 productos?** Recomiendo que sí: con 20, los carruseles y el menú de categorías quedan pobres.
-3. **¿Etiqueta Bioequivalente?** Es un detalle muy chileno y realista. Recomiendo incluirla, solo en genéricos ficticios.
-4. **¿Teléfonos reales de emergencia toxicológica** (como hace Salcobrand con CITUC) en el bloque sanitario? Recomiendo **no**: en un sitio ficticio es mejor no publicar números reales que alguien podría tomar como servicio del sitio. En su lugar, un texto genérico ("ante una intoxicación, llama al centro de información toxicológica de tu país").
+## Decisiones (2026-10-21)
+1. Dos partes con commits separados: A (navegación) y B (inicio y tarjetas).
+2. Catálogo ampliado a unos 40 productos ficticios.
+3. Etiqueta Bioequivalente solo en genéricos ficticios.
+4. Sin teléfonos reales de emergencia: texto genérico.
+
+## Progreso
+- **Parte A (2026-10-21): hecha.**
+  - Favoritos: el store, el contador del header, la página y el botón en la página de producto entraron en esta parte. El corazón en la tarjeta queda para la B.
+  - La estimación por comuna está en la página de producto; en la tarjeta va con la B.
+  - En el celular, el interruptor de tema se movió al menú lateral para que el header quepa en una fila a 375 px.
+- Parte B: pendiente.

@@ -3,6 +3,8 @@ import type { GetStaticPaths } from 'astro';
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import AgregarAlCarro from '../../components/AgregarAlCarro';
+import BotonFavorito from '../../components/BotonFavorito';
+import EntregaEstimada from '../../components/EntregaEstimada';
 import ProductoCard from '../../components/ProductoCard';
 import ProductoVisual from '../../components/ProductoVisual';
 import { categoriaPorId } from '../../lib/categorias';
@@ -63,8 +65,18 @@ const dcto = descuento(producto);
         )
       }
 
-      <div class="mt-6 max-w-sm">
+      <div class="mt-6 max-w-sm space-y-3">
         <AgregarAlCarro producto={producto} conCantidad client:load />
+        <BotonFavorito id={producto.id} nombre={producto.nombre} client:only="react">
+          <span slot="fallback" class="block h-11"></span>
+        </BotonFavorito>
+        {
+          producto.stock > 0 && (
+            <EntregaEstimada requiereReceta={producto.requiereReceta} client:only="react">
+              <span slot="fallback" class="block h-24" />
+            </EntregaEstimada>
+          )
+        }
       </div>
 
       <dl class="mt-8 divide-y divide-borde border-y border-borde text-sm">

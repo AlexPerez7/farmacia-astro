@@ -1,0 +1,24 @@
+---
+import Texto from '../layouts/Texto.astro';
+import { NOMBRE_TIENDA } from '../lib/tienda';
+import { url } from '../lib/url';
+---
+
+<Texto title="Términos y condiciones" actualizado="21 de octubre de 2026">
+  <h2>1. Sobre este sitio</h2>
+  <p>
+    {NOMBRE_TIENDA} es una tienda ficticia creada como proyecto de portafolio. No es un comercio real: no se venden productos, no se despachan pedidos y no se
+    realizan cobros.
+  </p>
+  <h2>2. Productos y precios</h2>
+  <p>Los productos, laboratorios, precios y stock son inventados y pueden cambiar sin aviso. Las ofertas indican su fecha de vigencia.</p>
+  <h2>3. Medicamentos con receta</h2>
+  <p>
+    Los medicamentos con receta médica solo se reservan en línea. La venta ocurre en sucursal, después de que el químico farmacéutico revisa la receta. Más
+    detalles en <a href={url('ayuda/#receta')}>Reserva con receta</a>.
+  </p>
+  <h2>4. Despacho y retiro</h2>
+  <p>Las fechas de entrega que muestra el sitio son estimaciones según reglas ficticias por comuna.</p>
+  <h2>5. Cambios y devoluciones</h2>
+  <p>En una farmacia real, los medicamentos no admiten devolución salvo fallas de fabricación. Aquí el texto es solo ilustrativo.</p>
+</Texto>

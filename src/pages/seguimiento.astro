@@ -1,0 +1,12 @@
+---
+import Base from '../layouts/Base.astro';
+import Seguimiento from '../components/Seguimiento';
+---
+
+<Base title="Seguimiento de pedido" description="Revisa el estado de tu pedido con su número.">
+  <h1 class="text-3xl font-bold text-texto">Seguimiento de pedido</h1>
+  <p class="mb-6 text-texto-2">Ingresa el número que recibiste al confirmar tu compra.</p>
+  <Seguimiento client:only="react">
+    <p slot="fallback" class="text-tenue">Cargando…</p>
+  </Seguimiento>
+</Base>

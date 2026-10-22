@@ -1,37 +1,26 @@
 import { useState } from 'react';
 import { useStore } from '@nanostores/react';
-import { $resumen, vaciar, type ItemCarro } from '../stores/carro';
+import { $resumen, vaciar } from '../stores/carro';
+import { $comuna, elegirComuna } from '../stores/comuna';
+import { registrarPedido } from '../stores/pedidos';
+import { COMUNAS } from '../lib/comunas';
+import { sucursalDeComuna } from '../lib/entrega';
+import { CLAVE_PEDIDO, type Pedido } from '../lib/pedidos';
 import { formatearRut, rutValido } from '../lib/rut';
 import { SUCURSALES, clp } from '../lib/tienda';
 import { url } from '../lib/url';
 
-export type Pedido = {
-  numero: string;
-  fecha: string;
-  nombre: string;
-  email: string;
-  entrega: 'despacho' | 'retiro';
-  destino: string;
-  items: ItemCarro[];
-  reservas: ItemCarro[];
-  subtotal: number;
-  envio: number;
-  total: number;
-};
-
-export const CLAVE_PEDIDO = 'pulso:ultimo-pedido';
-
 type Errores = Partial<Record<'nombre' | 'rut' | 'email' | 'telefono' | 'direccion' | 'comuna', string>>;
-
-const COMUNAS = ['Providencia', 'Ñuñoa', 'Las Condes', 'Santiago', 'Maipú', 'La Florida', 'Puente Alto', 'Vitacura'];
 
 export default function Checkout() {
   const r = useStore($resumen);
+  // La comuna elegida en el header llega precargada, y su sucursal más cercana queda como retiro sugerido.
+  const comunaInicial = useStore($comuna);
   const soloReservas = r.directos.length === 0;
 
-  const [datos, setDatos] = useState({ nombre: '', rut: '', email: '', telefono: '', direccion: '', comuna: '' });
+  const [datos, setDatos] = useState({ nombre: '', rut: '', email: '', telefono: '', direccion: '', comuna: comunaInicial });
   const [entrega, setEntrega] = useState<'despacho' | 'retiro'>('despacho');
-  const [sucursal, setSucursal] = useState(SUCURSALES[0].id);
+  const [sucursal, setSucursal] = useState(() => sucursalDeComuna(comunaInicial).id);
   const [pago, setPago] = useState('webpay');
   const [errores, setErrores] = useState<Errores>({});
   const [procesando, setProcesando] = useState(false);
@@ -93,6 +82,8 @@ export default function Checkout() {
       envio,
       total,
     };
+    registrarPedido(pedido);
+    if (modoEntrega === 'despacho') elegirComuna(datos.comuna);
     try {
       sessionStorage.setItem(CLAVE_PEDIDO, JSON.stringify(pedido));
     } catch {
@@ -181,7 +172,7 @@ export default function Checkout() {
                 <select id="campo-comuna" value={datos.comuna} onChange={set('comuna')} className={`${campo} ${borde('comuna')}`} aria-invalid={!!errores.comuna} aria-describedby="error-comuna">
                   <option value="">Selecciona…</option>
                   {COMUNAS.map((c) => (
-                    <option key={c}>{c}</option>
+                    <option key={c.nombre}>{c.nombre}</option>
                   ))}
                 </select>
                 {error('comuna')}

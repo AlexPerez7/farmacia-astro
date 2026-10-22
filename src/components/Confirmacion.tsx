@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { CLAVE_PEDIDO, type Pedido } from './Checkout';
+import { CLAVE_PEDIDO, type Pedido } from '../lib/pedidos';
 import { clp } from '../lib/tienda';
 import { url } from '../lib/url';
 
@@ -85,9 +85,14 @@ export default function Confirmacion() {
         </dl>
       </div>
 
-      <a href={url('')} className="block text-center font-semibold text-acento hover:underline">
-        Volver al inicio
-      </a>
+      <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+        <a href={url(`seguimiento/?pedido=${pedido.numero}`)} className="rounded-lg bg-marca-700 px-5 py-2.5 font-semibold text-white hover:bg-marca-800">
+          Seguir mi pedido
+        </a>
+        <a href={url('')} className="font-semibold text-acento hover:underline">
+          Volver al inicio
+        </a>
+      </div>
     </div>
   );
 }

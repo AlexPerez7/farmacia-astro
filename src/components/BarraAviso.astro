@@ -1,0 +1,61 @@
+---
+import { CORTE_RETIRO_HOY } from '../lib/entrega';
+import { ENVIO_GRATIS_DESDE, clp } from '../lib/tienda';
+
+const mensajes = [
+  `Despacho gratis en compras sobre ${clp(ENVIO_GRATIS_DESDE)}`,
+  `Retira hoy en sucursal comprando antes de las ${CORTE_RETIRO_HOY}:00`,
+  'Sitio de demostración: no se venden productos reales',
+];
+---
+
+<!-- Se oculta antes del primer pintado si ya se cerró (ver el script del <head> en Base.astro). -->
+<div class="barra-aviso bg-marca-900 text-xs font-medium text-marca-50" data-barra-aviso>
+  <div class="mx-auto flex max-w-7xl items-center gap-2 px-4">
+    <ul class="relative h-7 flex-1 overflow-hidden text-center" aria-label="Avisos">
+      {
+        mensajes.map((m, i) => (
+          <li class="absolute inset-0 truncate leading-7" data-mensaje hidden={i > 0}>
+            {m}
+          </li>
+        ))
+      }
+    </ul>
+    <button type="button" class="grid size-6 shrink-0 place-items-center rounded-full hover:bg-white/15" aria-label="Cerrar avisos" data-cerrar-aviso>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="size-3.5" aria-hidden="true">
+        <path d="M6 6l12 12M18 6 6 18"></path>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<script>
+  const barra = document.querySelector<HTMLElement>('[data-barra-aviso]');
+  if (barra) {
+    const mensajes = [...barra.querySelectorAll<HTMLElement>('[data-mensaje]')];
+    let actual = 0;
+    let pausada = false;
+    // Rota cada 5 s; se detiene con el mouse encima o el foco dentro, y no rota con movimiento reducido.
+    const reducido = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!reducido) {
+      const reloj = setInterval(() => {
+        if (pausada || document.hidden) return;
+        mensajes[actual].hidden = true;
+        actual = (actual + 1) % mensajes.length;
+        mensajes[actual].hidden = false;
+      }, 5000);
+      barra.addEventListener('mouseenter', () => (pausada = true));
+      barra.addEventListener('mouseleave', () => (pausada = false));
+      barra.addEventListener('focusin', () => (pausada = true));
+      barra.addEventListener('focusout', () => (pausada = false));
+      barra.querySelector('[data-cerrar-aviso]')?.addEventListener('click', () => clearInterval(reloj));
+    }
+    barra.querySelector('[data-cerrar-aviso]')?.addEventListener('click', () => {
+      document.documentElement.dataset.aviso = 'cerrado';
+      try {
+        localStorage.setItem('pulso:aviso-cerrado', '1');
+      } catch {}
+      document.getElementById('contenido')?.focus();
+    });
+  }
+</script>

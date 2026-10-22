@@ -95,3 +95,8 @@ body {
     animation-duration: 0.01ms !important;
   }
 }
+
+/* La barra de avisos cerrada no se pinta (el atributo lo pone el script del <head>). */
+[data-aviso='cerrado'] [data-barra-aviso] {
+  display: none;
+}

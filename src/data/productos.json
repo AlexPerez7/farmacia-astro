@@ -9,7 +9,12 @@
     "descripcion": "Analgésico y antipirético para el alivio del dolor leve a moderado y la fiebre. Venta directa.",
     "precio": 1290,
     "stock": 120,
-    "destacado": true
+    "destacado": true,
+    "subcategoria": "Dolor y fiebre",
+    "contenido": 16,
+    "unidad": "comprimido",
+    "bioequivalente": true,
+    "masVendido": true
   },
   {
     "id": "ibuprofeno-400-mg-20-comprimidos",
@@ -22,7 +27,13 @@
     "precio": 2190,
     "precioAnterior": 2690,
     "stock": 80,
-    "destacado": true
+    "destacado": true,
+    "subcategoria": "Dolor y fiebre",
+    "contenido": 20,
+    "unidad": "comprimido",
+    "bioequivalente": true,
+    "masVendido": true,
+    "ofertaHasta": "2026-11-15"
   },
   {
     "id": "loratadina-10-mg-30-comprimidos",
@@ -33,7 +44,11 @@
     "principioActivo": "Loratadina",
     "descripcion": "Antihistamínico para el alivio de síntomas de alergia como estornudos, picazón y rinitis.",
     "precio": 2490,
-    "stock": 64
+    "stock": 64,
+    "subcategoria": "Alergias",
+    "contenido": 30,
+    "unidad": "comprimido",
+    "bioequivalente": true
   },
   {
     "id": "amoxicilina-500-mg-21-capsulas",
@@ -45,7 +60,11 @@
     "descripcion": "Antibiótico de amplio espectro. Requiere receta médica: se reserva en línea y se retira en sucursal presentando la receta.",
     "precio": 4990,
     "stock": 30,
-    "requiereReceta": true
+    "requiereReceta": true,
+    "subcategoria": "Antibióticos",
+    "contenido": 21,
+    "unidad": "cápsula",
+    "bioequivalente": true
   },
   {
     "id": "losartan-50-mg-30-comprimidos",
@@ -57,7 +76,11 @@
     "descripcion": "Antihipertensivo de uso crónico. Requiere receta médica.",
     "precio": 3990,
     "stock": 45,
-    "requiereReceta": true
+    "requiereReceta": true,
+    "subcategoria": "Cardiovascular",
+    "contenido": 30,
+    "unidad": "comprimido",
+    "bioequivalente": true
   },
   {
     "id": "atorvastatina-20-mg-30-comprimidos",
@@ -69,7 +92,11 @@
     "descripcion": "Reduce el colesterol LDL. Tratamiento crónico bajo indicación médica. Requiere receta.",
     "precio": 5490,
     "stock": 0,
-    "requiereReceta": true
+    "requiereReceta": true,
+    "subcategoria": "Cardiovascular",
+    "contenido": 30,
+    "unidad": "comprimido",
+    "bioequivalente": true
   },
   {
     "id": "vitamina-c-1000-mg-efervescente",
@@ -82,7 +109,12 @@
     "precio": 3990,
     "precioAnterior": 4990,
     "stock": 90,
-    "destacado": true
+    "destacado": true,
+    "subcategoria": "Vitaminas",
+    "contenido": 20,
+    "unidad": "tableta",
+    "masVendido": true,
+    "ofertaHasta": "2026-11-10"
   },
   {
     "id": "magnesio-citrato-60-capsulas",
@@ -93,7 +125,10 @@
     "principioActivo": "Citrato de magnesio",
     "descripcion": "Contribuye a la función muscular normal y a reducir el cansancio.",
     "precio": 8990,
-    "stock": 40
+    "stock": 40,
+    "subcategoria": "Minerales",
+    "contenido": 60,
+    "unidad": "cápsula"
   },
   {
     "id": "omega-3-90-capsulas",
@@ -104,7 +139,10 @@
     "principioActivo": "Aceite de pescado (EPA y DHA)",
     "descripcion": "Ácidos grasos esenciales para la salud cardiovascular.",
     "precio": 12990,
-    "stock": 25
+    "stock": 25,
+    "subcategoria": "Omega y otros",
+    "contenido": 90,
+    "unidad": "cápsula"
   },
   {
     "id": "protector-solar-fps-50-gel",
@@ -116,7 +154,12 @@
     "precio": 14990,
     "precioAnterior": 17990,
     "stock": 35,
-    "destacado": true
+    "destacado": true,
+    "subcategoria": "Protección solar",
+    "contenido": 50,
+    "unidad": "ml",
+    "masVendido": true,
+    "ofertaHasta": "2026-11-30"
   },
   {
     "id": "crema-hidratante-acido-hialuronico",
@@ -126,7 +169,10 @@
     "presentacion": "Pote 50 ml",
     "descripcion": "Hidratación intensa de 24 horas para piel sensible. Sin perfume.",
     "precio": 16490,
-    "stock": 18
+    "stock": 18,
+    "subcategoria": "Hidratación",
+    "contenido": 50,
+    "unidad": "ml"
   },
   {
     "id": "agua-micelar-400-ml",
@@ -136,7 +182,10 @@
     "presentacion": "Frasco 400 ml",
     "descripcion": "Limpia y desmaquilla rostro y ojos sin necesidad de enjuague.",
     "precio": 7990,
-    "stock": 50
+    "stock": 50,
+    "subcategoria": "Limpieza facial",
+    "contenido": 400,
+    "unidad": "ml"
   },
   {
     "id": "pasta-dental-encias-sensibles",
@@ -146,7 +195,10 @@
     "presentacion": "Tubo 90 g",
     "descripcion": "Con flúor y fórmula suave para dientes y encías sensibles.",
     "precio": 3290,
-    "stock": 100
+    "stock": 100,
+    "subcategoria": "Higiene bucal",
+    "contenido": 90,
+    "unidad": "g"
   },
   {
     "id": "shampoo-anticaspa-400-ml",
@@ -156,7 +208,10 @@
     "presentacion": "Botella 400 ml",
     "descripcion": "Controla la caspa desde el primer lavado. Uso diario.",
     "precio": 5490,
-    "stock": 60
+    "stock": 60,
+    "subcategoria": "Cabello",
+    "contenido": 400,
+    "unidad": "ml"
   },
   {
     "id": "desodorante-roll-on-sin-alcohol",
@@ -166,7 +221,10 @@
     "presentacion": "Roll-on 50 ml",
     "descripcion": "Protección de 48 horas, apto para pieles sensibles.",
     "precio": 2990,
-    "stock": 75
+    "stock": 75,
+    "subcategoria": "Desodorantes",
+    "contenido": 50,
+    "unidad": "ml"
   },
   {
     "id": "panales-talla-m-40-unidades",
@@ -178,7 +236,12 @@
     "precio": 11990,
     "precioAnterior": 13490,
     "stock": 40,
-    "destacado": true
+    "destacado": true,
+    "subcategoria": "Pañales",
+    "contenido": 40,
+    "unidad": "unidad",
+    "masVendido": true,
+    "ofertaHasta": "2026-11-08"
   },
   {
     "id": "crema-coceduras-bebe",
@@ -188,7 +251,10 @@
     "presentacion": "Tubo 100 g",
     "descripcion": "Con óxido de zinc. Protege y calma la piel del área del pañal.",
     "precio": 4990,
-    "stock": 55
+    "stock": 55,
+    "subcategoria": "Piel del bebé",
+    "contenido": 100,
+    "unidad": "g"
   },
   {
     "id": "alcohol-gel-500-ml",
@@ -198,7 +264,11 @@
     "presentacion": "Frasco con dosificador 500 ml",
     "descripcion": "Desinfectante de manos de secado rápido, con aloe vera.",
     "precio": 2490,
-    "stock": 150
+    "stock": 150,
+    "subcategoria": "Desinfección",
+    "contenido": 500,
+    "unidad": "ml",
+    "masVendido": true
   },
   {
     "id": "parches-curitas-surtidos",
@@ -208,7 +278,10 @@
     "presentacion": "Caja 40 unidades",
     "descripcion": "Parches adhesivos de distintos tamaños, resistentes al agua.",
     "precio": 1990,
-    "stock": 90
+    "stock": 90,
+    "subcategoria": "Curaciones",
+    "contenido": 40,
+    "unidad": "unidad"
   },
   {
     "id": "termometro-digital",
@@ -219,6 +292,309 @@
     "descripcion": "Lectura en 60 segundos, punta flexible y alarma de fiebre.",
     "precio": 6990,
     "stock": 3,
+    "destacado": true,
+    "subcategoria": "Dispositivos médicos",
+    "contenido": 1,
+    "unidad": "unidad"
+  },
+  {
+    "id": "omeprazol-20-mg-28-capsulas",
+    "nombre": "Omeprazol 20 mg",
+    "laboratorio": "Biofarma Sur",
+    "categoria": "medicamentos",
+    "subcategoria": "Estomacal",
+    "presentacion": "28 cápsulas",
+    "contenido": 28,
+    "unidad": "cápsula",
+    "principioActivo": "Omeprazol",
+    "descripcion": "Reduce la producción de ácido estomacal. Alivio de la acidez y el reflujo.",
+    "precio": 2490,
+    "stock": 70,
+    "bioequivalente": true,
+    "masVendido": true
+  },
+  {
+    "id": "sales-rehidratacion-oral-10-sobres",
+    "nombre": "Sales de rehidratación oral",
+    "laboratorio": "Laboratorio Andes",
+    "categoria": "medicamentos",
+    "subcategoria": "Estomacal",
+    "presentacion": "10 sobres sabor naranja",
+    "contenido": 10,
+    "unidad": "sobre",
+    "descripcion": "Repone líquidos y electrolitos en cuadros de diarrea o deshidratación leve.",
+    "precio": 3290,
+    "stock": 45
+  },
+  {
+    "id": "cetirizina-10-mg-20-comprimidos",
+    "nombre": "Cetirizina 10 mg",
+    "laboratorio": "Genéricos del Pacífico",
+    "categoria": "medicamentos",
+    "subcategoria": "Alergias",
+    "presentacion": "20 comprimidos",
+    "contenido": 20,
+    "unidad": "comprimido",
+    "principioActivo": "Cetirizina",
+    "descripcion": "Antihistamínico de una toma diaria para rinitis alérgica y urticaria.",
+    "precio": 1990,
+    "stock": 55,
+    "bioequivalente": true
+  },
+  {
+    "id": "naproxeno-550-mg-10-comprimidos",
+    "nombre": "Naproxeno 550 mg",
+    "laboratorio": "Genéricos del Pacífico",
+    "categoria": "medicamentos",
+    "subcategoria": "Dolor y fiebre",
+    "presentacion": "10 comprimidos",
+    "contenido": 10,
+    "unidad": "comprimido",
+    "principioActivo": "Naproxeno sódico",
+    "descripcion": "Antiinflamatorio de acción prolongada para dolores musculares y menstruales.",
+    "precio": 2290,
+    "precioAnterior": 2790,
+    "ofertaHasta": "2026-11-15",
+    "stock": 40,
+    "bioequivalente": true
+  },
+  {
+    "id": "metformina-850-mg-30-comprimidos",
+    "nombre": "Metformina 850 mg",
+    "laboratorio": "Laboratorio Andes",
+    "categoria": "medicamentos",
+    "subcategoria": "Diabetes",
+    "presentacion": "30 comprimidos",
+    "contenido": 30,
+    "unidad": "comprimido",
+    "principioActivo": "Metformina",
+    "descripcion": "Antidiabético oral de uso crónico. Requiere receta médica.",
+    "precio": 2990,
+    "stock": 60,
+    "requiereReceta": true,
+    "bioequivalente": true
+  },
+  {
+    "id": "azitromicina-500-mg-3-comprimidos",
+    "nombre": "Azitromicina 500 mg",
+    "laboratorio": "Biofarma Sur",
+    "categoria": "medicamentos",
+    "subcategoria": "Antibióticos",
+    "presentacion": "3 comprimidos",
+    "contenido": 3,
+    "unidad": "comprimido",
+    "principioActivo": "Azitromicina",
+    "descripcion": "Antibiótico macrólido. Requiere receta médica.",
+    "precio": 5990,
+    "stock": 20,
+    "requiereReceta": true,
+    "bioequivalente": true
+  },
+  {
+    "id": "vitamina-d3-2000-ui-60-capsulas",
+    "nombre": "Vitamina D3 2000 UI",
+    "laboratorio": "NutriVida",
+    "categoria": "vitaminas",
+    "subcategoria": "Vitaminas",
+    "presentacion": "60 cápsulas blandas",
+    "contenido": 60,
+    "unidad": "cápsula",
+    "principioActivo": "Colecalciferol",
+    "descripcion": "Contribuye a la absorción del calcio y a la salud ósea.",
+    "precio": 6990,
+    "stock": 50,
+    "masVendido": true
+  },
+  {
+    "id": "multivitaminico-adultos-30-comprimidos",
+    "nombre": "Multivitamínico adultos",
+    "laboratorio": "NutriVida",
+    "categoria": "vitaminas",
+    "subcategoria": "Vitaminas",
+    "presentacion": "30 comprimidos",
+    "contenido": 30,
+    "unidad": "comprimido",
+    "descripcion": "13 vitaminas y 10 minerales en una toma diaria.",
+    "precio": 9990,
+    "precioAnterior": 12490,
+    "ofertaHasta": "2026-11-10",
+    "stock": 35,
     "destacado": true
+  },
+  {
+    "id": "hierro-acido-folico-30-comprimidos",
+    "nombre": "Hierro + ácido fólico",
+    "laboratorio": "NutriVida",
+    "categoria": "vitaminas",
+    "subcategoria": "Minerales",
+    "presentacion": "30 comprimidos",
+    "contenido": 30,
+    "unidad": "comprimido",
+    "descripcion": "Ayuda a la formación normal de glóbulos rojos.",
+    "precio": 4990,
+    "stock": 30
+  },
+  {
+    "id": "colageno-hidrolizado-300-g",
+    "nombre": "Colágeno hidrolizado",
+    "laboratorio": "Mar Austral",
+    "categoria": "vitaminas",
+    "subcategoria": "Omega y otros",
+    "presentacion": "Polvo 300 g sabor neutro",
+    "contenido": 300,
+    "unidad": "g",
+    "descripcion": "Disolver una medida en agua o jugo, una vez al día.",
+    "precio": 14990,
+    "stock": 22
+  },
+  {
+    "id": "protector-solar-infantil-fps-50-locion",
+    "nombre": "Protector solar infantil FPS 50+",
+    "laboratorio": "Dermalux",
+    "categoria": "dermocosmetica",
+    "subcategoria": "Protección solar",
+    "presentacion": "Loción 200 ml",
+    "contenido": 200,
+    "unidad": "ml",
+    "descripcion": "Resistente al agua, para pieles sensibles de niños desde los 6 meses.",
+    "precio": 16990,
+    "stock": 28
+  },
+  {
+    "id": "serum-vitamina-c-30-ml",
+    "nombre": "Sérum vitamina C 15%",
+    "laboratorio": "Piel Clara",
+    "categoria": "dermocosmetica",
+    "subcategoria": "Tratamiento facial",
+    "presentacion": "Frasco gotario 30 ml",
+    "contenido": 30,
+    "unidad": "ml",
+    "descripcion": "Antioxidante que unifica el tono y aporta luminosidad.",
+    "precio": 19990,
+    "precioAnterior": 24990,
+    "ofertaHasta": "2026-11-30",
+    "stock": 15,
+    "destacado": true
+  },
+  {
+    "id": "gel-limpiador-piel-grasa-200-ml",
+    "nombre": "Gel limpiador piel grasa",
+    "laboratorio": "Piel Clara",
+    "categoria": "dermocosmetica",
+    "subcategoria": "Limpieza facial",
+    "presentacion": "Tubo 200 ml",
+    "contenido": 200,
+    "unidad": "ml",
+    "descripcion": "Limpia en profundidad y controla el brillo sin resecar.",
+    "precio": 9490,
+    "stock": 32
+  },
+  {
+    "id": "cepillo-dental-suave-pack-2",
+    "nombre": "Cepillo dental suave",
+    "laboratorio": "Sonrisa+",
+    "categoria": "cuidado-personal",
+    "subcategoria": "Higiene bucal",
+    "presentacion": "Pack 2 unidades",
+    "contenido": 2,
+    "unidad": "unidad",
+    "descripcion": "Cerdas suaves y cabezal compacto para llegar a todas las zonas.",
+    "precio": 3490,
+    "stock": 80
+  },
+  {
+    "id": "enjuague-bucal-sin-alcohol-500-ml",
+    "nombre": "Enjuague bucal sin alcohol",
+    "laboratorio": "Sonrisa+",
+    "categoria": "cuidado-personal",
+    "subcategoria": "Higiene bucal",
+    "presentacion": "Botella 500 ml",
+    "contenido": 500,
+    "unidad": "ml",
+    "descripcion": "Protección contra la placa y aliento fresco por 12 horas.",
+    "precio": 4290,
+    "stock": 65,
+    "masVendido": true
+  },
+  {
+    "id": "acondicionador-reparacion-400-ml",
+    "nombre": "Acondicionador reparación",
+    "laboratorio": "Cuidar",
+    "categoria": "cuidado-personal",
+    "subcategoria": "Cabello",
+    "presentacion": "Botella 400 ml",
+    "contenido": 400,
+    "unidad": "ml",
+    "descripcion": "Para cabello dañado o teñido. Desenreda y aporta brillo.",
+    "precio": 5490,
+    "stock": 40
+  },
+  {
+    "id": "panales-talla-g-36-unidades",
+    "nombre": "Pañales talla G",
+    "laboratorio": "Pequeños Pasos",
+    "categoria": "bebe-y-mama",
+    "subcategoria": "Pañales",
+    "presentacion": "36 unidades (9 a 13 kg)",
+    "contenido": 36,
+    "unidad": "unidad",
+    "descripcion": "Ultra absorbentes, con cintura elástica e indicador de humedad.",
+    "precio": 12990,
+    "stock": 30
+  },
+  {
+    "id": "toallitas-humedas-bebe-80-unidades",
+    "nombre": "Toallitas húmedas bebé",
+    "laboratorio": "Pequeños Pasos",
+    "categoria": "bebe-y-mama",
+    "subcategoria": "Piel del bebé",
+    "presentacion": "Paquete 80 unidades",
+    "contenido": 80,
+    "unidad": "unidad",
+    "descripcion": "Sin perfume ni alcohol. Con aloe vera.",
+    "precio": 2990,
+    "stock": 90,
+    "masVendido": true
+  },
+  {
+    "id": "gasas-esteriles-10-unidades",
+    "nombre": "Gasas estériles 10 x 10 cm",
+    "laboratorio": "Botiquín Hogar",
+    "categoria": "primeros-auxilios",
+    "subcategoria": "Curaciones",
+    "presentacion": "Caja 10 unidades",
+    "contenido": 10,
+    "unidad": "unidad",
+    "descripcion": "Gasas de algodón estériles, en sobres individuales.",
+    "precio": 1490,
+    "stock": 70
+  },
+  {
+    "id": "suero-fisiologico-20-ampollas",
+    "nombre": "Suero fisiológico",
+    "laboratorio": "Botiquín Hogar",
+    "categoria": "primeros-auxilios",
+    "subcategoria": "Curaciones",
+    "presentacion": "20 ampollas de 5 ml",
+    "contenido": 100,
+    "unidad": "ml",
+    "descripcion": "Solución de cloruro de sodio al 0,9% para limpieza de heridas y lavado nasal.",
+    "precio": 2490,
+    "stock": 60
+  },
+  {
+    "id": "tensiometro-digital-brazo",
+    "nombre": "Tensiómetro digital de brazo",
+    "laboratorio": "Botiquín Hogar",
+    "categoria": "primeros-auxilios",
+    "subcategoria": "Dispositivos médicos",
+    "presentacion": "1 unidad con brazalete",
+    "contenido": 1,
+    "unidad": "unidad",
+    "descripcion": "Mide presión arterial y pulso. Memoria para 60 lecturas.",
+    "precio": 34990,
+    "precioAnterior": 39990,
+    "ofertaHasta": "2026-11-30",
+    "stock": 8
   }
 ]
