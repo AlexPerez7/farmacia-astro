@@ -6,7 +6,7 @@ import { url } from '../lib/url';
 export default function ItemCarroFila({ item }: { item: ItemCarro }) {
   return (
     <li className="flex gap-3 py-4">
-      <a href={url(`productos/${item.id}/`)} className="shrink-0">
+      <a href={url(`productos/${item.id}/`)} className="shrink-0" tabIndex={-1} aria-hidden="true">
         <ProductoVisual categoria={item.categoria} tamano="sm" className="size-16" />
       </a>
       <div className="flex min-w-0 flex-1 flex-col">

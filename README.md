@@ -60,6 +60,18 @@ npm run build     # genera dist/
 npm run preview
 ```
 
+## Tests
+
+| Comando | Qué corre |
+|---|---|
+| `npm run test` | Unitarios con Vitest (`tests/unit/`): RUT, envío, precios, URLs, store del carro y del tema |
+| `npm run test:e2e` | E2E con Playwright (`tests/e2e/`) sobre el build: responsividad de 320 a 1440 px, tema, recorrido de compra y accesibilidad con axe, en ambos temas |
+| `npm run test:todo` | `astro check` + unitarios + e2e |
+
+La primera vez, `npx playwright install chromium` descarga el navegador de Playwright. Para usar el Edge instalado en vez de descargarlo: `PW_CHANNEL=msedge npm run test:e2e`.
+
+En GitHub Actions los tests corren en cada push y pull request, y el sitio solo se publica si pasan.
+
 ## Despliegue
 
 El workflow `.github/workflows/deploy.yml` publica en GitHub Pages en cada push a `main`. En el repositorio: **Settings → Pages → Source: GitHub Actions**.

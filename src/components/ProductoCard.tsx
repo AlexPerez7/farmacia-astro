@@ -10,7 +10,7 @@ export default function ProductoCard({ producto }: { producto: Producto }) {
 
   return (
     <article className="group flex flex-col rounded-2xl border border-borde bg-superficie p-2.5 transition-shadow sm:p-3 hover:shadow-md">
-      <a href={enlace} className="relative block">
+      <a href={enlace} className="relative block" tabIndex={-1} aria-hidden="true">
         <ProductoVisual categoria={producto.categoria} className="aspect-square" />
         <div className="absolute left-2 top-2 flex flex-col items-start gap-1">
           {dcto > 0 && <span className="rounded-md bg-red-600 px-1.5 py-0.5 text-[11px] font-bold sm:text-xs text-white">-{dcto}%</span>}
@@ -27,12 +27,20 @@ export default function ProductoCard({ producto }: { producto: Producto }) {
           </a>
         </h3>
         <p className="text-sm text-tenue">{producto.presentacion}</p>
+        {/* Las etiquetas sobre la imagen no se leen (el enlace está oculto); se repiten aquí para lectores de pantalla. */}
+        {producto.requiereReceta && <p className="sr-only">Requiere receta médica</p>}
         <div className="mt-auto pt-3">
           <p className="flex flex-wrap items-baseline gap-x-2">
             <span className="text-lg font-bold text-texto">{clp(producto.precio)}</span>
-            {producto.precioAnterior && <span className="text-sm text-tenue line-through">{clp(producto.precioAnterior)}</span>}
+            {producto.precioAnterior && (
+              <span className="text-sm text-tenue line-through">
+                <span className="sr-only">Antes </span>
+                {clp(producto.precioAnterior)}
+                <span className="sr-only">, {dcto}% de descuento</span>
+              </span>
+            )}
           </p>
-          {producto.stock > 0 && producto.stock <= 5 && <p className="text-xs font-medium text-orange-600 dark:text-orange-400">¡Últimas {producto.stock} unidades!</p>}
+          {producto.stock > 0 && producto.stock <= 5 && <p className="text-xs font-medium text-orange-700 dark:text-orange-400">¡Últimas {producto.stock} unidades!</p>}
           <div className="mt-2">
             <AgregarAlCarro producto={producto} compacto />
           </div>

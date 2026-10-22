@@ -28,11 +28,16 @@ Correcciones menores (una errata, un estilo puntual) no necesitan spec, pero sí
 ## Verificación antes de dar algo por hecho
 
 ```bash
-npm run check   # astro check: 0 errores
-npm run build   # build estático sin errores
+npm run test:todo                      # astro check + Vitest + Playwright
+PW_CHANNEL=msedge npm run test:e2e     # e2e con el Edge instalado, sin descargar Chromium
 ```
 
-Y, cuando el cambio es visual o interactivo, probarlo en el navegador (`astro dev --background`, URL `http://localhost:4321/farmacia-astro/`). Si no se pudo probar en el navegador, decirlo explícitamente.
+- Lógica nueva en `src/lib/` o `src/stores/` → test unitario en `tests/unit/`.
+- Página, flujo o componente interactivo nuevo → cubrirlo en `tests/e2e/` y agregar la página a `PAGINAS` de `tests/e2e/utilidades.ts` (así entra en el chequeo de responsividad).
+- En e2e, usar aserciones que reintentan (`await expect(...).toBeVisible()`), no `isVisible()` inmediato, y selectores por rol o etiqueta.
+- Accesibilidad: axe no debe reportar infracciones `serious` ni `critical`.
+
+Y, cuando el cambio es visual, mirarlo además en el navegador (`astro dev --background`, URL `http://localhost:4321/farmacia-astro/`). Si no se pudo, decirlo explícitamente.
 
 ## Desarrollo
 

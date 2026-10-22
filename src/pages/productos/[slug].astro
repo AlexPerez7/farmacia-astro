@@ -48,7 +48,7 @@ const dcto = descuento(producto);
         <span class="text-3xl font-extrabold text-texto">{clp(producto.precio)}</span>
         {producto.precioAnterior && <span class="text-lg text-tenue line-through">{clp(producto.precioAnterior)}</span>}
       </p>
-      <p class:list={['mt-1 text-sm font-medium', producto.stock === 0 ? 'text-red-600 dark:text-red-400' : producto.stock <= 5 ? 'text-orange-600 dark:text-orange-400' : 'text-emerald-700 dark:text-emerald-300']}>
+      <p class:list={['mt-1 text-sm font-medium', producto.stock === 0 ? 'text-red-600 dark:text-red-400' : producto.stock <= 5 ? 'text-orange-700 dark:text-orange-400' : 'text-emerald-700 dark:text-emerald-300']}>
         {producto.stock === 0 ? 'Sin stock' : producto.stock <= 5 ? `¡Últimas ${producto.stock} unidades!` : 'Disponible'}
       </p>
 

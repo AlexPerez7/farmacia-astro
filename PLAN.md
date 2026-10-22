@@ -36,7 +36,7 @@ Astro 7 · React 19 · Tailwind CSS 4 · nanostores · Fuse.js · TypeScript est
 |---|---|---|
 | **1. MVP de tienda** | Catálogo, búsqueda y filtros, carro, checkout simulado, despliegue | hecha (spec 001) |
 | **2. Calidad visual** | Modo oscuro y responsividad revisada en todos los anchos | hecha (spec 002) |
-| **3. Pruebas** | Tests unitarios (store, RUT) y e2e con Playwright en CI | pendiente |
+| **3. Pruebas** | Tests unitarios (Vitest), e2e y accesibilidad (Playwright + axe) en CI, deploy condicionado | propuesta (spec 003) |
 | **4. Extras de portafolio** | Imágenes de producto, favoritos, historial de pedidos local, Lighthouse ≥ 95 documentado | pendiente |
 
 ## 5. Decisiones
@@ -52,3 +52,4 @@ Astro 7 · React 19 · Tailwind CSS 4 · nanostores · Fuse.js · TypeScript est
 - 2026-10-21: fase 1 hecha (spec 001). 20 productos, 32 páginas estáticas, carro con nanostores, checkout simulado con validación de RUT. `astro check` 0 errores, build OK, deploy a GitHub Pages OK. Pendiente: prueba manual del carro y checkout en navegador (la extensión de Chrome no estaba conectada).
 - 2026-10-21: adoptado el flujo de specs (`docs/specs/`), `AGENTS.md`, `CLAUDE.md` y este plan. Redactada la spec 002 (modo oscuro y responsividad).
 - 2026-10-21: fase 2 hecha (spec 002). Colores semánticos con tema claro/oscuro, interruptor Sistema/Claro/Oscuro sin destello, 11 correcciones de responsividad. Verificado con Playwright sobre Edge: sin scroll horizontal en 9 páginas × 5 anchos × 2 temas, interruptor y recorrido de compra completo en ambos temas, contraste AA calculado. La verificación encontró y corrigió el desborde de `/carro/` en el celular y dos contrastes insuficientes. Cierra la prueba en navegador pendiente de la spec 001. Siguiente: fase 3 (tests automatizados en el repo).
+- 2026-10-21: push de las specs 001-002 y deploy. Redactada la spec 003 (tests automatizados).
