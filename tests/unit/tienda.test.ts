@@ -5,7 +5,7 @@ import { url } from '../../src/lib/url';
 
 describe('costoEnvio', () => {
   it('es gratis con el carro vacío (no hay nada que despachar)', () => {
-    expect(costoEnvio(0)).toBe(0);
+    expect(costoEnvio(0)).toBe(999); // ROTO A PROPÓSITO: prueba de que CI bloquea
   });
 
   it('cobra justo bajo el umbral', () => {
